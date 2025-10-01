@@ -3,211 +3,207 @@ import Layout from "../components/Layout.astro";
 ---
 
 <Layout title="生日快乐，我的宝贝 💕">
-  <!-- Hero Section -->
-  <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+  <!-- 主容器 -->
+  <div id="app" class="min-h-screen relative overflow-hidden">
     <!-- 背景渐变 -->
     <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50"></div>
     
-    <!-- 主内容 -->
-    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
-      <!-- 心跳图标 -->
-      <div class="mb-8">
-        <div class="inline-block animate-heartbeat">
-          <div class="w-20 h-20 mx-auto bg-gradient-to-r from-red-400 to-pink-500 rounded-full flex items-center justify-center shadow-xl">
-            <span class="text-white text-3xl">💖</span>
+    <!-- 进度指示器 -->
+    <div class="absolute top-6 left-1/2 transform -translate-x-1/2 z-20">
+      <div class="flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg">
+        <span id="currentStep" class="text-sm font-medium text-gray-700">1</span>
+        <span class="text-gray-400">/</span>
+        <span class="text-sm text-gray-500">5</span>
+      </div>
+    </div>
+    
+    <!-- 步骤容器 -->
+    <div id="stepContainer" class="relative z-10 min-h-screen flex items-center justify-center">
+      
+      <!-- 步骤1: 欢迎页面 -->
+      <div class="step active" data-step="1">
+        <div class="text-center px-6 max-w-4xl mx-auto">
+          <!-- 心跳图标 -->
+          <div class="mb-8">
+            <div class="inline-block animate-heartbeat">
+              <div class="w-20 h-20 mx-auto bg-gradient-to-r from-red-400 to-pink-500 rounded-full flex items-center justify-center shadow-xl">
+                <span class="text-white text-3xl">💖</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 名字和标题 -->
+          <h1 class="text-responsive-lg font-bold text-gray-900 mb-4">
+            生日快乐，<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">我的宝贝</span>
+          </h1>
+          
+          <p class="text-responsive text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
+            愿你的每一天都像今天一样特别，愿你的笑容永远如阳光般灿烂
+          </p>
+          
+          <!-- 开始按钮 -->
+          <button id="startBtn" class="gradient-button px-8 py-4 text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
+            🎁 开始我们的特别之旅
+          </button>
+        </div>
+      </div>
+      
+      <!-- 步骤2: 我们的故事 -->
+      <div class="step" data-step="2">
+        <div class="text-center px-6 max-w-4xl mx-auto">
+          <div class="glass-morphism rounded-3xl p-8 md:p-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              给最特别的你
+            </h2>
+            <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+              从我们相遇的那一天起，每一天都因为你而变得特别。<br>
+              今天是你专属的日子，愿所有的美好都围绕着你。
+            </p>
+            
+            <!-- 日期和天数 -->
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8 text-gray-600">
+              <div class="text-center">
+                <div class="text-2xl font-bold text-blue-600" id="currentDate"></div>
+                <div class="text-sm">今天</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-pink-600" id="daysTogether"></div>
+                <div class="text-sm">在一起的天数</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       
-      <!-- 名字和标题 -->
-      <h1 class="text-responsive-lg font-bold text-gray-900 mb-4">
-        生日快乐，<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">我的宝贝</span>
-      </h1>
+      <!-- 步骤3: 许愿环节 -->
+      <div class="step" data-step="3">
+        <div class="text-center px-6 max-w-4xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12">
+            许个愿吧
+          </h2>
+          
+          <!-- 3D 蛋糕 -->
+          <div class="relative mb-12">
+            <div id="cake" class="w-48 h-48 mx-auto relative cursor-pointer">
+              <!-- 蛋糕主体 -->
+              <div class="absolute bottom-0 w-full h-32 bg-gradient-to-t from-amber-300 to-amber-200 rounded-t-3xl shadow-xl">
+                <!-- 蜡烛 -->
+                <div id="candle" class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4 w-2 h-8 bg-gradient-to-t from-red-500 to-pink-400 rounded-full">
+                  <div id="flame" class="absolute -top-2 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-gradient-to-t from-yellow-400 to-orange-400 rounded-full opacity-0 transition-opacity duration-300"></div>
+                </div>
+              </div>
+              
+              <!-- 蛋糕装饰 -->
+              <div class="absolute top-8 left-1/2 transform -translate-x-1/2 w-40 h-6 bg-gradient-to-t from-pink-300 to-pink-200 rounded-full"></div>
+            </div>
+            
+            <p class="text-gray-600 mt-6">点击点燃蜡烛，长按吹气熄灭</p>
+          </div>
+          
+          <!-- 愿望文字 -->
+          <div class="glass-morphism rounded-2xl p-8">
+            <p class="text-lg text-gray-700">
+              闭上眼睛，许下你的生日愿望<br>
+              愿所有的美好都能实现 ✨
+            </p>
+          </div>
+        </div>
+      </div>
       
-      <p class="text-responsive text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-        愿你的每一天都像今天一样特别，愿你的笑容永远如阳光般灿烂
-      </p>
+      <!-- 步骤4: 拆礼物 -->
+      <div class="step" data-step="4">
+        <div class="text-center px-6 max-w-4xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12">
+            拆开你的礼物
+          </h2>
+          
+          <!-- 礼盒 -->
+          <div class="relative mb-12">
+            <div id="giftBox" class="w-64 h-64 mx-auto relative cursor-pointer">
+              <!-- 礼盒主体 -->
+              <div class="absolute inset-0 bg-gradient-to-br from-red-400 to-pink-500 rounded-2xl shadow-2xl">
+                <!-- 丝带 -->
+                <div class="absolute top-1/2 left-0 right-0 h-2 bg-white transform -translate-y-1/2"></div>
+                <div class="absolute left-1/2 top-0 bottom-0 w-2 bg-white transform -translate-x-1/2"></div>
+                
+                <!-- 蝴蝶结 -->
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full"></div>
+              </div>
+              
+              <!-- 进度条 -->
+              <div id="progressBar" class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 w-48 h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div id="progressFill" class="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300" style="width: 0%"></div>
+              </div>
+            </div>
+            
+            <p class="text-gray-600 mt-8">左右滑动丝带解锁礼物</p>
+          </div>
+          
+          <!-- 隐藏内容 -->
+          <div id="hiddenContent" class="glass-morphism rounded-2xl p-8 opacity-0 transition-all duration-500">
+            <h3 class="text-2xl font-bold text-gray-900 mb-4">🎉 惊喜！</h3>
+            <p class="text-lg text-gray-700 mb-6">
+              这是给你的特别礼物：<br>
+              愿你的每一天都充满爱和快乐！
+            </p>
+            <div class="text-6xl mb-4">💕</div>
+          </div>
+        </div>
+      </div>
       
-      <!-- CTA 按钮 -->
-      <button id="openGiftBtn" class="gradient-button px-8 py-4 text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
-        🎁 点我拆礼物
-      </button>
+      <!-- 步骤5: 完成页面 -->
+      <div class="step" data-step="5">
+        <div class="text-center px-6 max-w-4xl mx-auto">
+          <div class="glass-morphism rounded-3xl p-8 md:p-12">
+            <div class="text-6xl mb-6">🎉</div>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              生日快乐！
+            </h2>
+            <p class="text-lg text-gray-700 mb-8">
+              愿你的每一天都充满爱和快乐<br>
+              愿所有的美好都能实现 ✨
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+              <button id="shareBtn" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                分享这份快乐
+              </button>
+              <button id="restartBtn" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                再来一次
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 导航按钮 -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+      <div class="flex items-center space-x-4">
+        <button id="prevBtn" class="nav-button opacity-0 pointer-events-none transition-all duration-300">
+          ← 上一步
+        </button>
+        <button id="nextBtn" class="nav-button">
+          下一步 →
+        </button>
+      </div>
     </div>
     
     <!-- 装饰性元素 -->
     <div class="absolute top-20 left-10 w-4 h-4 bg-yellow-300 rounded-full animate-pulse"></div>
     <div class="absolute top-40 right-16 w-3 h-3 bg-pink-300 rounded-full animate-pulse" style="animation-delay: 1s;"></div>
     <div class="absolute bottom-32 left-20 w-5 h-5 bg-blue-300 rounded-full animate-pulse" style="animation-delay: 2s;"></div>
-  </section>
-
-  <!-- Prologue Section -->
-  <section id="prologue" class="py-20 px-6 bg-white">
-    <div class="max-w-4xl mx-auto text-center">
-      <div class="glass-morphism rounded-3xl p-8 md:p-12 mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-          给最特别的你
-        </h2>
-        <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-          从我们相遇的那一天起，每一天都因为你而变得特别。<br>
-          今天是你专属的日子，愿所有的美好都围绕着你。
-        </p>
-        
-        <!-- 日期和天数 -->
-        <div class="flex flex-col md:flex-row justify-center items-center gap-8 text-gray-600">
-          <div class="text-center">
-            <div class="text-2xl font-bold text-blue-600" id="currentDate"></div>
-            <div class="text-sm">今天</div>
-          </div>
-          <div class="text-center">
-            <div class="text-2xl font-bold text-pink-600" id="daysTogether"></div>
-            <div class="text-sm">在一起的天数</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Moments Section -->
-  <section id="moments" class="py-20 px-6 bg-gray-50">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">
-        我们的美好时光
-      </h2>
-      
-      <!-- 照片轮播 -->
-      <div class="relative">
-        <div id="momentsCarousel" class="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4 scrollbar-hide">
-          <!-- 照片卡片 -->
-          <div class="moment-card flex-shrink-0 w-80 h-96 bg-white rounded-2xl shadow-lg overflow-hidden snap-center">
-            <div class="h-64 bg-gradient-to-br from-pink-200 to-purple-200 flex items-center justify-center">
-              <span class="text-6xl">📸</span>
-            </div>
-            <div class="p-6">
-              <h3 class="font-semibold text-gray-900 mb-2">第一次约会</h3>
-              <p class="text-gray-600 text-sm">那个阳光明媚的午后，我们第一次牵手</p>
-            </div>
-          </div>
-          
-          <div class="moment-card flex-shrink-0 w-80 h-96 bg-white rounded-2xl shadow-lg overflow-hidden snap-center">
-            <div class="h-64 bg-gradient-to-br from-blue-200 to-cyan-200 flex items-center justify-center">
-              <span class="text-6xl">🌅</span>
-            </div>
-            <div class="p-6">
-              <h3 class="font-semibold text-gray-900 mb-2">看日出</h3>
-              <p class="text-gray-600 text-sm">凌晨四点，我们一起等待第一缕阳光</p>
-            </div>
-          </div>
-          
-          <div class="moment-card flex-shrink-0 w-80 h-96 bg-white rounded-2xl shadow-lg overflow-hidden snap-center">
-            <div class="h-64 bg-gradient-to-br from-yellow-200 to-orange-200 flex items-center justify-center">
-              <span class="text-6xl">🍰</span>
-            </div>
-            <div class="p-6">
-              <h3 class="font-semibold text-gray-900 mb-2">一起做蛋糕</h3>
-              <p class="text-gray-600 text-sm">厨房里满是面粉，但你的笑容最甜</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Wishes Section -->
-  <section id="wishes" class="py-20 px-6 bg-white">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12">
-        许个愿吧
-      </h2>
-      
-      <!-- 3D 蛋糕 -->
-      <div class="relative mb-12">
-        <div id="cake" class="w-48 h-48 mx-auto relative cursor-pointer">
-          <!-- 蛋糕主体 -->
-          <div class="absolute bottom-0 w-full h-32 bg-gradient-to-t from-amber-300 to-amber-200 rounded-t-3xl shadow-xl">
-            <!-- 蜡烛 -->
-            <div id="candle" class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4 w-2 h-8 bg-gradient-to-t from-red-500 to-pink-400 rounded-full">
-              <div id="flame" class="absolute -top-2 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-gradient-to-t from-yellow-400 to-orange-400 rounded-full opacity-0 transition-opacity duration-300"></div>
-            </div>
-          </div>
-          
-          <!-- 蛋糕装饰 -->
-          <div class="absolute top-8 left-1/2 transform -translate-x-1/2 w-40 h-6 bg-gradient-to-t from-pink-300 to-pink-200 rounded-full"></div>
-        </div>
-        
-        <p class="text-gray-600 mt-6">点击点燃蜡烛，长按吹气熄灭</p>
-      </div>
-      
-      <!-- 愿望文字 -->
-      <div class="glass-morphism rounded-2xl p-8">
-        <p class="text-lg text-gray-700">
-          闭上眼睛，许下你的生日愿望<br>
-          愿所有的美好都能实现 ✨
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Gift Section -->
-  <section id="gift" class="py-20 px-6 bg-gradient-to-br from-purple-50 to-pink-50">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12">
-        拆开你的礼物
-      </h2>
-      
-      <!-- 礼盒 -->
-      <div class="relative mb-12">
-        <div id="giftBox" class="w-64 h-64 mx-auto relative cursor-pointer">
-          <!-- 礼盒主体 -->
-          <div class="absolute inset-0 bg-gradient-to-br from-red-400 to-pink-500 rounded-2xl shadow-2xl">
-            <!-- 丝带 -->
-            <div class="absolute top-1/2 left-0 right-0 h-2 bg-white transform -translate-y-1/2"></div>
-            <div class="absolute left-1/2 top-0 bottom-0 w-2 bg-white transform -translate-x-1/2"></div>
-            
-            <!-- 蝴蝶结 -->
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full"></div>
-          </div>
-          
-          <!-- 进度条 -->
-          <div id="progressBar" class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 w-48 h-2 bg-gray-200 rounded-full overflow-hidden">
-            <div id="progressFill" class="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300" style="width: 0%"></div>
-          </div>
-        </div>
-        
-        <p class="text-gray-600 mt-8">左右滑动丝带解锁礼物</p>
-      </div>
-      
-      <!-- 隐藏内容 -->
-      <div id="hiddenContent" class="glass-morphism rounded-2xl p-8 opacity-0 transition-all duration-500">
-        <h3 class="text-2xl font-bold text-gray-900 mb-4">🎉 惊喜！</h3>
-        <p class="text-lg text-gray-700 mb-6">
-          这是给你的特别礼物：<br>
-          愿你的每一天都充满爱和快乐！
-        </p>
-        <div class="text-6xl mb-4">💕</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="py-12 px-6 bg-gray-900 text-white text-center">
-    <div class="max-w-4xl mx-auto">
-      <p class="text-lg mb-4">Made with 💖 by 你的名字</p>
-      <div class="flex justify-center gap-4">
-        <button id="shareBtn" class="px-6 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
-          分享
-        </button>
-        <button id="saveBtn" class="px-6 py-2 bg-green-600 rounded-lg hover:bg-green-700 transition-colors">
-          保存
-        </button>
-      </div>
-    </div>
-  </footer>
+  </div>
 
   <!-- 彩纸动画容器 -->
   <div id="confettiContainer" class="fixed inset-0 pointer-events-none z-50"></div>
 </Layout>
 
 <script>
+  // 步骤管理
+  let currentStep = 1;
+  const totalSteps = 5;
+  
   // 初始化页面
   document.addEventListener('DOMContentLoaded', function() {
     // 设置当前日期
@@ -225,12 +221,105 @@ import Layout from "../components/Layout.astro";
       daysTogetherElement.textContent = daysTogether.toString();
     }
     
-    // 初始化交互功能
+    // 初始化步骤导航
+    initStepNavigation();
     initCakeInteraction();
     initGiftUnlock();
-    initScrollAnimations();
     initVibration();
   });
+  
+  // 步骤导航
+  function initStepNavigation() {
+    const startBtn = document.getElementById('startBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    
+    if (startBtn) {
+      startBtn.addEventListener('click', () => nextStep());
+    }
+    
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => nextStep());
+    }
+    
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => prevStep());
+    }
+    
+    if (restartBtn) {
+      restartBtn.addEventListener('click', () => goToStep(1));
+    }
+    
+    updateStepDisplay();
+  }
+  
+  function nextStep() {
+    if (currentStep < totalSteps) {
+      currentStep++;
+      updateStepDisplay();
+      updateNavigationButtons();
+    }
+  }
+  
+  function prevStep() {
+    if (currentStep > 1) {
+      currentStep--;
+      updateStepDisplay();
+      updateNavigationButtons();
+    }
+  }
+  
+  function goToStep(step: number) {
+    currentStep = step;
+    updateStepDisplay();
+    updateNavigationButtons();
+  }
+  
+  function updateStepDisplay() {
+    const steps = document.querySelectorAll('.step');
+    const currentStepElement = document.getElementById('currentStep');
+    
+    steps.forEach((step, index) => {
+      const stepElement = step as HTMLElement;
+      if (index + 1 === currentStep) {
+        stepElement.classList.add('active');
+        stepElement.style.display = 'block';
+      } else {
+        stepElement.classList.remove('active');
+        stepElement.style.display = 'none';
+      }
+    });
+    
+    if (currentStepElement) {
+      currentStepElement.textContent = currentStep.toString();
+    }
+  }
+  
+  function updateNavigationButtons() {
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    
+    if (prevBtn) {
+      if (currentStep === 1) {
+        prevBtn.style.opacity = '0';
+        prevBtn.style.pointerEvents = 'none';
+      } else {
+        prevBtn.style.opacity = '1';
+        prevBtn.style.pointerEvents = 'auto';
+      }
+    }
+    
+    if (nextBtn) {
+      if (currentStep === totalSteps) {
+        nextBtn.style.opacity = '0';
+        nextBtn.style.pointerEvents = 'none';
+      } else {
+        nextBtn.style.opacity = '1';
+        nextBtn.style.pointerEvents = 'auto';
+      }
+    }
+  }
   
   // 蛋糕交互
   function initCakeInteraction() {
@@ -272,6 +361,13 @@ import Layout from "../components/Layout.astro";
       }
       createConfetti();
       triggerVibration();
+      
+      // 蜡烛熄灭后自动进入下一步
+      setTimeout(() => {
+        if (currentStep === 3) {
+          nextStep();
+        }
+      }, 1000);
     }, 2000);
   }
   
@@ -316,6 +412,13 @@ import Layout from "../components/Layout.astro";
           hiddenContent.style.transform = 'translateY(0)';
           triggerVibration();
           createConfetti();
+          
+          // 礼物解锁后自动进入下一步
+          setTimeout(() => {
+            if (currentStep === 4) {
+              nextStep();
+            }
+          }, 2000);
         }
       }
     });
@@ -325,20 +428,6 @@ import Layout from "../components/Layout.astro";
     });
   }
   
-  // 滚动动画
-  function initScrollAnimations() {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-elastic-in');
-        }
-      });
-    });
-    
-    document.querySelectorAll('section').forEach(section => {
-      observer.observe(section);
-    });
-  }
   
   // 震动反馈
   function initVibration() {
@@ -407,18 +496,106 @@ import Layout from "../components/Layout.astro";
       }
     });
   }
-  
-  // 保存功能
-  const saveBtn = document.getElementById('saveBtn');
-  if (saveBtn) {
-    saveBtn.addEventListener('click', function() {
-      // 这里可以添加保存为图片的功能
-      alert('保存功能开发中...');
-    });
-  }
 </script>
 
 <style>
+  /* 步骤样式 */
+  .step {
+    display: none;
+    width: 100%;
+    min-height: 100vh;
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .step.active {
+    display: block;
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  /* 导航按钮样式 */
+  .nav-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  }
+  
+  .nav-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  }
+  
+  .nav-button:active {
+    transform: translateY(0);
+  }
+  
+  /* 玻璃态效果 */
+  .glass-morphism {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+  
+  /* 渐变按钮 */
+  .gradient-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  }
+  
+  .gradient-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  }
+  
+  /* 心跳动画 */
+  @keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  .animate-heartbeat {
+    animation: heartbeat 2s ease-in-out infinite;
+  }
+  
+  /* 响应式文字 */
+  .text-responsive {
+    font-size: 1.125rem;
+  }
+  
+  .text-responsive-lg {
+    font-size: 2.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    .text-responsive {
+      font-size: 1rem;
+    }
+    
+    .text-responsive-lg {
+      font-size: 2rem;
+    }
+  }
+  
+  /* 隐藏滚动条 */
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
