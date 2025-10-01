@@ -212,12 +212,18 @@ import Layout from "../components/Layout.astro";
   document.addEventListener('DOMContentLoaded', function() {
     // 设置当前日期
     const currentDate = new Date();
-    document.getElementById('currentDate').textContent = currentDate.toLocaleDateString('zh-CN');
+    const currentDateElement = document.getElementById('currentDate');
+    if (currentDateElement) {
+      currentDateElement.textContent = currentDate.toLocaleDateString('zh-CN');
+    }
     
     // 计算在一起的天数（示例：从2023年1月1日开始）
     const startDate = new Date('2023-01-01');
-    const daysTogether = Math.floor((currentDate - startDate) / (1000 * 60 * 60 * 24));
-    document.getElementById('daysTogether').textContent = daysTogether;
+    const daysTogether = Math.floor((currentDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+    const daysTogetherElement = document.getElementById('daysTogether');
+    if (daysTogetherElement) {
+      daysTogetherElement.textContent = daysTogether.toString();
+    }
     
     // 初始化交互功能
     initCakeInteraction();
@@ -231,6 +237,8 @@ import Layout from "../components/Layout.astro";
     const cake = document.getElementById('cake');
     const flame = document.getElementById('flame');
     let isLit = false;
+    
+    if (!cake || !flame) return;
     
     cake.addEventListener('click', function() {
       if (!isLit) {
@@ -255,10 +263,13 @@ import Layout from "../components/Layout.astro";
   }
   
   // 吹气计时器
-  let blowTimer;
+  let blowTimer: ReturnType<typeof setTimeout> | undefined;
   function startBlowTimer() {
     blowTimer = setTimeout(() => {
-      document.getElementById('flame').style.opacity = '0';
+      const flame = document.getElementById('flame');
+      if (flame) {
+        flame.style.opacity = '0';
+      }
       createConfetti();
       triggerVibration();
     }, 2000);
@@ -275,6 +286,9 @@ import Layout from "../components/Layout.astro";
     const giftBox = document.getElementById('giftBox');
     const progressFill = document.getElementById('progressFill');
     const hiddenContent = document.getElementById('hiddenContent');
+    
+    if (!giftBox || !progressFill || !hiddenContent) return;
+    
     let progress = 0;
     let isUnlocked = false;
     
@@ -330,21 +344,23 @@ import Layout from "../components/Layout.astro";
   function initVibration() {
     // 检查是否支持震动API
     if ('vibrate' in navigator) {
-      window.vibrate = navigator.vibrate;
+      (window as any).vibrate = navigator.vibrate;
     } else {
-      window.vibrate = function() {}; // 空函数作为兜底
+      (window as any).vibrate = function() {}; // 空函数作为兜底
     }
   }
   
   function triggerVibration() {
-    if (window.vibrate) {
-      window.vibrate(20);
+    if ((window as any).vibrate) {
+      (window as any).vibrate(20);
     }
   }
   
   // 彩纸动画
   function createConfetti() {
     const container = document.getElementById('confettiContainer');
+    if (!container) return;
+    
     const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD'];
     
     for (let i = 0; i < 50; i++) {
@@ -374,26 +390,32 @@ import Layout from "../components/Layout.astro";
   }
   
   // 分享功能
-  document.getElementById('shareBtn').addEventListener('click', function() {
-    if (navigator.share) {
-      navigator.share({
-        title: '生日快乐！',
-        text: '来看看这个特别的生日祝福页面',
-        url: window.location.href
-      });
-    } else {
-      // 复制链接到剪贴板
-      navigator.clipboard.writeText(window.location.href).then(() => {
-        alert('链接已复制到剪贴板！');
-      });
-    }
-  });
+  const shareBtn = document.getElementById('shareBtn');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', function() {
+      if (navigator.share) {
+        navigator.share({
+          title: '生日快乐！',
+          text: '来看看这个特别的生日祝福页面',
+          url: window.location.href
+        });
+      } else {
+        // 复制链接到剪贴板
+        navigator.clipboard.writeText(window.location.href).then(() => {
+          alert('链接已复制到剪贴板！');
+        });
+      }
+    });
+  }
   
   // 保存功能
-  document.getElementById('saveBtn').addEventListener('click', function() {
-    // 这里可以添加保存为图片的功能
-    alert('保存功能开发中...');
-  });
+  const saveBtn = document.getElementById('saveBtn');
+  if (saveBtn) {
+    saveBtn.addEventListener('click', function() {
+      // 这里可以添加保存为图片的功能
+      alert('保存功能开发中...');
+    });
+  }
 </script>
 
 <style>
