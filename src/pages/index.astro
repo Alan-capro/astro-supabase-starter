@@ -18,12 +18,12 @@ import Layout from "../components/Layout.astro";
           <div class="absolute inset-0 w-full h-full flex items-center justify-center">
             <video 
               id="openingVideo" 
-              class="w-full h-full object-cover" 
+              class="w-full h-full object-contain md:object-cover" 
               autoplay
-              muted
               loop
               playsinline
               preload="auto"
+              controls
             >
               <source src="/videos/open.mp4" type="video/mp4">
               <source src="/videos/open.mov" type="video/quicktime">
@@ -289,6 +289,9 @@ import Layout from "../components/Layout.astro";
     if (openingVideo) {
       const video = openingVideo as HTMLVideoElement;
       
+      // 设置视频音量
+      video.volume = 0.8;
+      
       // 自动播放开场视频
       video.play().catch((err: any) => {
         console.log('开场视频播放失败:', err);
@@ -301,12 +304,12 @@ import Layout from "../components/Layout.astro";
         nextStep();
       });
       
-      // 视频播放3秒后自动进入下一步（防止视频太长）
+      // 视频播放5秒后自动进入下一步（给用户更多时间观看）
       setTimeout(() => {
         if (currentStep === 0) {
           nextStep();
         }
-      }, 3000);
+      }, 5000);
       
       // 更新进度条
       if (videoProgress) {
@@ -315,6 +318,15 @@ import Layout from "../components/Layout.astro";
           videoProgress.style.width = progress + '%';
         });
       }
+      
+      // 移动端优化：点击视频可以暂停/播放
+      video.addEventListener('click', () => {
+        if (video.paused) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      });
     }
   }
   
@@ -733,6 +745,18 @@ import Layout from "../components/Layout.astro";
     
     .text-8xl {
       font-size: 4rem;
+    }
+    
+    /* 移动端视频优化 */
+    #openingVideo {
+      max-width: 100vw;
+      max-height: 100vh;
+      object-fit: contain;
+    }
+    
+    /* 移动端视频容器 */
+    .step[data-step="0"] .absolute.inset-0 {
+      padding: 1rem;
     }
   }
   
