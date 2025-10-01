@@ -6,7 +6,7 @@ import Layout from "../components/Layout.astro";
   <!-- 主容器 -->
   <div id="app" class="min-h-screen relative">
     <!-- 背景 -->
-    <div class="absolute inset-0 bg-white dark:bg-black transition-colors duration-500"></div>
+    <div class="absolute inset-0 bg-white"></div>
     
     <!-- 步骤容器 -->
     <div id="stepContainer" class="relative z-10 min-h-screen">
@@ -15,12 +15,12 @@ import Layout from "../components/Layout.astro";
       <div class="step active" data-step="1">
         <div class="min-h-screen flex flex-col items-center justify-center px-8 py-24">
           <!-- 主标题 -->
-          <h1 class="text-6xl md:text-8xl font-light text-black dark:text-white mb-8 text-center leading-tight">
+          <h1 class="text-6xl md:text-8xl font-light text-black mb-8 text-center leading-tight">
             生日快乐
           </h1>
           
           <!-- 副标题 -->
-          <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-16 text-center font-light max-w-2xl">
+          <p class="text-xl md:text-2xl text-gray-600 mb-16 text-center font-light max-w-2xl">
             愿你的每一天都像今天一样特别
           </p>
           
@@ -35,13 +35,13 @@ import Layout from "../components/Layout.astro";
       <div class="step" data-step="2">
         <div class="min-h-screen flex flex-col items-center justify-center px-8 py-24">
           <!-- 主标题 -->
-          <h2 class="text-5xl md:text-7xl font-light text-black dark:text-white mb-12 text-center">
+          <h2 class="text-5xl md:text-7xl font-light text-black mb-12 text-center">
             给最特别的你
           </h2>
           
           <!-- 故事内容 -->
           <div class="max-w-4xl mx-auto text-center mb-16">
-            <p class="text-2xl md:text-3xl text-gray-600 dark:text-gray-400 font-light leading-relaxed mb-12">
+            <p class="text-2xl md:text-3xl text-gray-600 font-light leading-relaxed mb-12">
               从我们相遇的那一天起<br>
               每一天都因为你而变得特别
             </p>
@@ -49,12 +49,12 @@ import Layout from "../components/Layout.astro";
             <!-- 时间线 -->
             <div class="flex flex-col md:flex-row justify-center items-center gap-16 text-center">
               <div class="timeline-item">
-                <div class="text-4xl md:text-5xl font-light text-black dark:text-white mb-2" id="currentDate"></div>
-                <div class="text-sm text-gray-500 dark:text-gray-500 uppercase tracking-wider">今天</div>
+                <div class="text-4xl md:text-5xl font-light text-black mb-2" id="currentDate"></div>
+                <div class="text-sm text-gray-500 uppercase tracking-wider">今天</div>
               </div>
               <div class="timeline-item">
-                <div class="text-4xl md:text-5xl font-light text-black dark:text-white mb-2" id="daysTogether"></div>
-                <div class="text-sm text-gray-500 dark:text-gray-500 uppercase tracking-wider">在一起的天数</div>
+                <div class="text-4xl md:text-5xl font-light text-black mb-2" id="daysTogether"></div>
+                <div class="text-sm text-gray-500 uppercase tracking-wider">在一起的天数</div>
               </div>
             </div>
           </div>
@@ -65,17 +65,17 @@ import Layout from "../components/Layout.astro";
       <div class="step" data-step="3">
         <div class="min-h-screen flex flex-col items-center justify-center px-8 py-24">
           <!-- 主标题 -->
-          <h2 class="text-5xl md:text-7xl font-light text-black dark:text-white mb-16 text-center">
+          <h2 class="text-5xl md:text-7xl font-light text-black mb-16 text-center">
             许个愿吧
           </h2>
           
           <!-- 许愿内容 -->
           <div class="max-w-3xl mx-auto text-center">
             <div class="mb-12">
-              <div class="w-32 h-32 mx-auto bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-8">
+              <div class="w-32 h-32 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-8">
                 <span class="text-6xl">🎂</span>
               </div>
-              <p class="text-2xl md:text-3xl text-gray-600 dark:text-gray-400 font-light leading-relaxed mb-12">
+              <p class="text-2xl md:text-3xl text-gray-600 font-light leading-relaxed mb-12">
                 闭上眼睛，许下你的生日愿望<br>
                 愿所有的美好都能实现
               </p>
@@ -92,7 +92,7 @@ import Layout from "../components/Layout.astro";
       <div class="step" data-step="4">
         <div class="min-h-screen flex flex-col items-center justify-center px-8 py-24">
           <!-- 主标题 -->
-          <h2 class="text-5xl md:text-7xl font-light text-black dark:text-white mb-16 text-center">
+          <h2 class="text-5xl md:text-7xl font-light text-black mb-16 text-center">
             拆开你的礼物
           </h2>
           
@@ -100,7 +100,7 @@ import Layout from "../components/Layout.astro";
           <div id="productShowcase" class="max-w-4xl mx-auto w-full">
             <!-- 视频容器 -->
             <div class="relative w-full max-w-sm mx-auto mb-16">
-              <div class="aspect-4-3 bg-black rounded-3xl overflow-hidden shadow-2xl">
+              <div class="aspect-3-4 bg-black rounded-3xl overflow-hidden shadow-2xl">
                 <video 
                   id="giftVideo" 
                   class="w-full h-full object-cover" 
@@ -127,41 +127,41 @@ import Layout from "../components/Layout.astro";
             
             <!-- 产品介绍 -->
             <div id="productInfo" class="text-center opacity-0 transform translate-y-8 transition-all duration-700">
-              <h3 class="text-4xl md:text-6xl font-light text-black dark:text-white mb-4">
+              <h3 class="text-4xl md:text-6xl font-light text-black mb-4">
                 石英表一只
               </h3>
-              <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-16 font-light">
+              <p class="text-xl md:text-2xl text-gray-600 mb-16 font-light">
                 希望她喜欢
               </p>
               
               <!-- 产品特性 -->
               <div class="grid md:grid-cols-3 gap-12 mb-16">
                 <div class="text-center">
-                  <div class="w-16 h-16 mx-auto bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
+                  <div class="w-16 h-16 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-4">
                     <span class="text-2xl">⏰</span>
                   </div>
-                  <h4 class="text-lg font-medium text-black dark:text-white mb-2">精准计时</h4>
-                  <p class="text-sm text-gray-500 dark:text-gray-500">石英机芯，走时精准</p>
+                  <h4 class="text-lg font-medium text-black mb-2">精准计时</h4>
+                  <p class="text-sm text-gray-500">石英机芯，走时精准</p>
                 </div>
                 <div class="text-center">
-                  <div class="w-16 h-16 mx-auto bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
+                  <div class="w-16 h-16 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-4">
                     <span class="text-2xl">💎</span>
                   </div>
-                  <h4 class="text-lg font-medium text-black dark:text-white mb-2">精致工艺</h4>
-                  <p class="text-sm text-gray-500 dark:text-gray-500">精工细作，品质保证</p>
+                  <h4 class="text-lg font-medium text-black mb-2">精致工艺</h4>
+                  <p class="text-sm text-gray-500">精工细作，品质保证</p>
                 </div>
                 <div class="text-center">
-                  <div class="w-16 h-16 mx-auto bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
+                  <div class="w-16 h-16 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-4">
                     <span class="text-2xl">❤️</span>
                   </div>
-                  <h4 class="text-lg font-medium text-black dark:text-white mb-2">爱的见证</h4>
-                  <p class="text-sm text-gray-500 dark:text-gray-500">每一秒都记录着我们的时光</p>
+                  <h4 class="text-lg font-medium text-black mb-2">爱的见证</h4>
+                  <p class="text-sm text-gray-500">每一秒都记录着我们的时光</p>
                 </div>
               </div>
               
               <!-- 祝福语 -->
               <div class="max-w-2xl mx-auto">
-                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-light leading-relaxed mb-12">
+                <p class="text-xl md:text-2xl text-gray-600 font-light leading-relaxed mb-12">
                   愿这只手表陪伴你度过每一个美好时刻<br>
                   让时间见证我们的爱情
                 </p>
@@ -178,16 +178,16 @@ import Layout from "../components/Layout.astro";
       <div class="step" data-step="5">
         <div class="min-h-screen flex flex-col items-center justify-center px-8 py-24">
           <!-- 主标题 -->
-          <h2 class="text-5xl md:text-7xl font-light text-black dark:text-white mb-16 text-center">
+          <h2 class="text-5xl md:text-7xl font-light text-black mb-16 text-center">
             生日快乐！
           </h2>
           
           <!-- 完成内容 -->
           <div class="max-w-3xl mx-auto text-center mb-16">
-            <div class="w-24 h-24 mx-auto bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-8">
+            <div class="w-24 h-24 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-8">
               <span class="text-4xl">🎉</span>
             </div>
-            <p class="text-2xl md:text-3xl text-gray-600 dark:text-gray-400 font-light leading-relaxed mb-12">
+            <p class="text-2xl md:text-3xl text-gray-600 font-light leading-relaxed mb-12">
               愿你的每一天都充满爱和快乐<br>
               愿所有的美好都能实现
             </p>
@@ -207,7 +207,7 @@ import Layout from "../components/Layout.astro";
     
     <!-- 导航按钮 -->
     <div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-      <div class="flex items-center space-x-2 bg-white/80 dark:bg-black/80 backdrop-blur-xl rounded-full px-6 py-3 shadow-2xl border border-white/20 dark:border-white/10">
+      <div class="flex items-center space-x-2 bg-white/80 backdrop-blur-xl rounded-full px-6 py-3 shadow-2xl border border-gray-200">
         <button id="prevBtn" class="apple-nav-button opacity-0 pointer-events-none transition-all duration-300">
           上一步
         </button>
@@ -580,8 +580,8 @@ import Layout from "../components/Layout.astro";
   }
   
   /* 视频容器 */
-  .aspect-4-3 {
-    aspect-ratio: 4 / 3;
+  .aspect-3-4 {
+    aspect-ratio: 3 / 4;
   }
   
   /* 视频播放效果 */
@@ -626,32 +626,6 @@ import Layout from "../components/Layout.astro";
     transform: translateY(-4px);
   }
   
-  /* 深色模式支持 */
-  @media (prefers-color-scheme: dark) {
-    .dark\:bg-black {
-      background-color: #000000;
-    }
-    
-    .dark\:text-white {
-      color: #ffffff;
-    }
-    
-    .dark\:text-gray-400 {
-      color: #9ca3af;
-    }
-    
-    .dark\:text-gray-500 {
-      color: #6b7280;
-    }
-    
-    .dark\:bg-gray-800 {
-      background-color: #1f2937;
-    }
-    
-    .dark\:border-white\/10 {
-      border-color: rgba(255, 255, 255, 0.1);
-    }
-  }
   
   /* 移动端适配 */
   @media (max-width: 768px) {
@@ -664,7 +638,7 @@ import Layout from "../components/Layout.astro";
       bottom: 1rem;
     }
     
-    .aspect-4-3 {
+    .aspect-3-4 {
       max-width: 300px;
     }
     
