@@ -2,16 +2,26 @@
 @plugin "@tailwindcss/typography";
 
 @layer base {
-  a {
-    @apply hover:underline hover:underline-offset-2 hover:decoration-green-500;
+  body {
+    @apply font-sans;
   }
-  td {
-    @apply pt-4 pb-6;
+  
+  /* 生日主题动画 */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
   }
-  th {
-    @apply py-4;
+  
+  @keyframes sparkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.1); }
   }
-  img {
-    @apply border rounded-sm border-neutral-500;
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-sparkle {
+    animation: sparkle 2s ease-in-out infinite;
   }
 }

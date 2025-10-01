@@ -1,74 +1,67 @@
-# Astro Supabase Starter
+# 🎉 生日祝福网页
 
-![Astro Supabase Starter Preview](astro-supabase-starter-preview.png)
+一个美丽的生日祝福网页，使用 Astro 构建，具有现代化的设计和动画效果。
 
-**View demo:** [https://astro-supabase-starter.netlify.app/](https://astro-supabase-starter.netlify.app/)
+## ✨ 特性
 
-The Astro Supabase starter demonstrates how to integrate **Supabase** into an Astro project deployed on Netlify.
+- 🎂 美丽的生日主题设计
+- 🌈 渐变背景和动画效果
+- 📱 响应式设计，支持移动端
+- ⚡ 快速加载，无需数据库
+- 🎈 可爱的生日装饰元素
 
-## Deploying to Netlify
+## 🚀 本地运行
 
-If you click "Deploy to Netlify" button, it will create a new repo for you that looks exactly like this one, and sets that repo up immediately for deployment on Netlify.
+### 前置要求
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify-templates/astro-supabase-starter&fullConfiguration=true)
+- [Node.js](https://nodejs.org/) v18.14+
+- npm 或 yarn
 
-## Astro Commands
+### 安装和运行
 
-All commands are run from the root of the project, from a terminal:
+1. **安装依赖**
+   ```bash
+   npm install
+   ```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+2. **启动开发服务器**
+   ```bash
+   npm run dev
+   ```
 
-## Developing Locally
+3. **打开浏览器**
+   访问 [http://localhost:4321](http://localhost:4321)
 
-| Prerequisites                                                                |
-| :--------------------------------------------------------------------------- |
-| [Node.js](https://nodejs.org/) v18.14+                                       |
-| (optional) [nvm](https://github.com/nvm-sh/nvm) for Node version management  |
-| [Netlify account](https://netlify.com/)                                      |
-| [Netlify CLI](https://docs.netlify.com/cli/get-started/).                    |
-| [Supabase account](https://supabase.com/)                                    |
+### 其他命令
 
-### Set up the database
+| 命令                | 说明                                    |
+| :------------------ | :-------------------------------------- |
+| `npm run dev`       | 启动开发服务器                          |
+| `npm run build`     | 构建生产版本到 `./dist/`                |
+| `npm run preview`   | 预览构建后的网站                        |
+| `npm run astro`     | 运行 Astro CLI 命令                     |
 
-To use this template, you’ll need to set up and seed a new Supabase database.
+## 🎨 自定义
 
-1. Create a new Supabase project.
-2. Run the SQL commands found in the `supabase/migrations` directory in the Supabase UI.
-3. To seed the database with data, you can import the contents of the `supabase/seed.csv` file in the Supabase UI.
+你可以轻松自定义这个生日祝福网页：
 
-ℹ️ _Note: This template was created to be used with the Supabase extension for Netlify. If you don’t wish to use the Netlify Supabase extension, you will need to set the `SUPABASE_DATABASE_URL` and `SUPABASE_ANON_KEY` environment variables in the `.env` file._
+- 修改 `src/pages/index.astro` 来更改内容
+- 更新 `src/styles/globals.css` 来调整样式
+- 添加更多页面到 `src/pages/` 目录
 
-### Install and run locally
-
-1. Clone this repository, then run `npm install` in its root directory.
-
-2. For the starter to have full functionality locally, please ensure you have an up-to-date version of Netlify CLI. Run:
-
-```
-npm install netlify-cli@latest -g
-```
-
-3. Link your local repository to the deployed Netlify site. This will ensure you're using the same runtime version for both local development and your deployed site.
+## 📁 项目结构
 
 ```
-netlify link
+src/
+├── components/          # 组件
+│   └── Layout.astro    # 布局组件
+├── pages/             # 页面
+│   └── index.astro    # 首页
+├── styles/            # 样式
+│   └── globals.css    # 全局样式
+└── utils/             # 工具函数
 ```
 
-4. Then, run the Astro.js development server via Netlify CLI:
+## 🎊 生日快乐！
 
-```
-netlify dev --target-port 4321
-```
-
-If your browser doesn't navigate to the site automatically, visit [localhost:8888](http://localhost:8888).
-
-## Support
-
-If you get stuck along the way, get help in our [support forums](https://answers.netlify.com/).
+愿这个简单的网页能为你或你的朋友带来快乐！🎂✨
