@@ -8,14 +8,6 @@ import Layout from "../components/Layout.astro";
     <!-- 背景渐变 -->
     <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50"></div>
     
-    <!-- 进度指示器 -->
-    <div class="absolute top-6 left-1/2 transform -translate-x-1/2 z-20">
-      <div class="flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg">
-        <span id="currentStep" class="text-sm font-medium text-gray-700">1</span>
-        <span class="text-gray-400">/</span>
-        <span class="text-sm text-gray-500">5</span>
-      </div>
-    </div>
     
     <!-- 步骤容器 -->
     <div id="stepContainer" class="relative z-10 min-h-screen flex items-center justify-center">
@@ -82,30 +74,16 @@ import Layout from "../components/Layout.astro";
             许个愿吧
           </h2>
           
-          <!-- 3D 蛋糕 -->
-          <div class="relative mb-12">
-            <div id="cake" class="w-48 h-48 mx-auto relative cursor-pointer">
-              <!-- 蛋糕主体 -->
-              <div class="absolute bottom-0 w-full h-32 bg-gradient-to-t from-amber-300 to-amber-200 rounded-t-3xl shadow-xl">
-                <!-- 蜡烛 -->
-                <div id="candle" class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-4 w-2 h-8 bg-gradient-to-t from-red-500 to-pink-400 rounded-full">
-                  <div id="flame" class="absolute -top-2 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-gradient-to-t from-yellow-400 to-orange-400 rounded-full opacity-0 transition-opacity duration-300"></div>
-                </div>
-              </div>
-              
-              <!-- 蛋糕装饰 -->
-              <div class="absolute top-8 left-1/2 transform -translate-x-1/2 w-40 h-6 bg-gradient-to-t from-pink-300 to-pink-200 rounded-full"></div>
-            </div>
-            
-            <p class="text-gray-600 mt-6">点击点燃蜡烛，长按吹气熄灭</p>
-          </div>
-          
-          <!-- 愿望文字 -->
-          <div class="glass-morphism rounded-2xl p-8">
-            <p class="text-lg text-gray-700">
+          <!-- 简约许愿区域 -->
+          <div class="glass-morphism rounded-3xl p-12 mb-8">
+            <div class="text-6xl mb-6">🎂</div>
+            <p class="text-xl text-gray-700 mb-8">
               闭上眼睛，许下你的生日愿望<br>
               愿所有的美好都能实现 ✨
             </p>
+            <button id="wishBtn" class="gradient-button px-8 py-4 text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
+              🌟 许愿完成
+            </button>
           </div>
         </div>
       </div>
@@ -117,36 +95,42 @@ import Layout from "../components/Layout.astro";
             拆开你的礼物
           </h2>
           
-          <!-- 礼盒 -->
-          <div class="relative mb-12">
-            <div id="giftBox" class="w-64 h-64 mx-auto relative cursor-pointer">
-              <!-- 礼盒主体 -->
-              <div class="absolute inset-0 bg-gradient-to-br from-red-400 to-pink-500 rounded-2xl shadow-2xl">
-                <!-- 丝带 -->
-                <div class="absolute top-1/2 left-0 right-0 h-2 bg-white transform -translate-y-1/2"></div>
-                <div class="absolute left-1/2 top-0 bottom-0 w-2 bg-white transform -translate-x-1/2"></div>
-                
-                <!-- 蝴蝶结 -->
-                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full"></div>
-              </div>
-              
-              <!-- 进度条 -->
-              <div id="progressBar" class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 w-48 h-2 bg-gray-200 rounded-full overflow-hidden">
-                <div id="progressFill" class="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300" style="width: 0%"></div>
-              </div>
-            </div>
-            
-            <p class="text-gray-600 mt-8">左右滑动丝带解锁礼物</p>
+          <!-- 简约礼盒 -->
+          <div class="glass-morphism rounded-3xl p-12 mb-8">
+            <div class="text-6xl mb-6">🎁</div>
+            <p class="text-xl text-gray-700 mb-8">
+              点击下面的按钮来拆开你的特别礼物
+            </p>
+            <button id="openGiftBtn" class="gradient-button px-8 py-4 text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
+              🎁 拆开礼物
+            </button>
           </div>
           
-          <!-- 隐藏内容 -->
-          <div id="hiddenContent" class="glass-morphism rounded-2xl p-8 opacity-0 transition-all duration-500">
-            <h3 class="text-2xl font-bold text-gray-900 mb-4">🎉 惊喜！</h3>
+          <!-- 视频内容 -->
+          <div id="giftContent" class="glass-morphism rounded-2xl p-8 opacity-0 transition-all duration-500 transform translate-y-8">
+            <h3 class="text-2xl font-bold text-gray-900 mb-6">🎉 惊喜！</h3>
             <p class="text-lg text-gray-700 mb-6">
-              这是给你的特别礼物：<br>
-              愿你的每一天都充满爱和快乐！
+              这是给你的特别礼物：
             </p>
-            <div class="text-6xl mb-4">💕</div>
+            
+            <!-- 视频播放器 -->
+            <div class="relative w-full max-w-2xl mx-auto">
+              <video 
+                id="giftVideo" 
+                class="w-full h-auto rounded-xl shadow-2xl" 
+                controls 
+                preload="metadata"
+                poster="/images/video-poster.jpg"
+              >
+                <source src="/videos/copy_27B269CC-2DFE-43D6-9DD7-50A9A5274ABA.MOV" type="video/quicktime">
+                <source src="/videos/copy_27B269CC-2DFE-43D6-9DD7-50A9A5274ABA.mp4" type="video/mp4">
+                您的浏览器不支持视频播放。
+              </video>
+            </div>
+            
+            <p class="text-lg text-gray-700 mt-6">
+              愿你的每一天都充满爱和快乐！💕
+            </p>
           </div>
         </div>
       </div>
@@ -223,8 +207,8 @@ import Layout from "../components/Layout.astro";
     
     // 初始化步骤导航
     initStepNavigation();
-    initCakeInteraction();
-    initGiftUnlock();
+    initWishInteraction();
+    initGiftInteraction();
     initVibration();
   });
   
@@ -321,111 +305,50 @@ import Layout from "../components/Layout.astro";
     }
   }
   
-  // 蛋糕交互
-  function initCakeInteraction() {
-    const cake = document.getElementById('cake');
-    const flame = document.getElementById('flame');
-    let isLit = false;
+  // 许愿交互
+  function initWishInteraction() {
+    const wishBtn = document.getElementById('wishBtn');
     
-    if (!cake || !flame) return;
-    
-    cake.addEventListener('click', function() {
-      if (!isLit) {
-        flame.style.opacity = '1';
-        isLit = true;
+    if (wishBtn) {
+      wishBtn.addEventListener('click', function() {
         triggerVibration();
-      }
-    });
-    
-    cake.addEventListener('touchstart', function(e) {
-      if (isLit) {
-        e.preventDefault();
-        startBlowTimer();
-      }
-    });
-    
-    cake.addEventListener('touchend', function() {
-      if (isLit) {
-        stopBlowTimer();
-      }
-    });
-  }
-  
-  // 吹气计时器
-  let blowTimer: ReturnType<typeof setTimeout> | undefined;
-  function startBlowTimer() {
-    blowTimer = setTimeout(() => {
-      const flame = document.getElementById('flame');
-      if (flame) {
-        flame.style.opacity = '0';
-      }
-      createConfetti();
-      triggerVibration();
-      
-      // 蜡烛熄灭后自动进入下一步
-      setTimeout(() => {
-        if (currentStep === 3) {
-          nextStep();
-        }
-      }, 1000);
-    }, 2000);
-  }
-  
-  function stopBlowTimer() {
-    if (blowTimer) {
-      clearTimeout(blowTimer);
+        createConfetti();
+        
+        // 许愿完成后自动进入下一步
+        setTimeout(() => {
+          if (currentStep === 3) {
+            nextStep();
+          }
+        }, 1500);
+      });
     }
   }
   
-  // 礼盒解锁
-  function initGiftUnlock() {
-    const giftBox = document.getElementById('giftBox');
-    const progressFill = document.getElementById('progressFill');
-    const hiddenContent = document.getElementById('hiddenContent');
+  // 礼物交互
+  function initGiftInteraction() {
+    const openGiftBtn = document.getElementById('openGiftBtn');
+    const giftContent = document.getElementById('giftContent');
     
-    if (!giftBox || !progressFill || !hiddenContent) return;
-    
-    let progress = 0;
-    let isUnlocked = false;
-    
-    let startX = 0;
-    let isDragging = false;
-    
-    giftBox.addEventListener('touchstart', function(e) {
-      if (!isUnlocked) {
-        startX = e.touches[0].clientX;
-        isDragging = true;
-      }
-    });
-    
-    giftBox.addEventListener('touchmove', function(e) {
-      if (isDragging && !isUnlocked) {
-        const currentX = e.touches[0].clientX;
-        const deltaX = Math.abs(currentX - startX);
+    if (openGiftBtn && giftContent) {
+      openGiftBtn.addEventListener('click', function() {
+        // 显示礼物内容
+        giftContent.style.opacity = '1';
+        giftContent.style.transform = 'translateY(0)';
         
-        progress = Math.min(deltaX / 120, 1) * 100;
-        progressFill.style.width = progress + '%';
+        // 隐藏按钮
+        openGiftBtn.style.display = 'none';
         
-        if (progress >= 100 && !isUnlocked) {
-          isUnlocked = true;
-          hiddenContent.style.opacity = '1';
-          hiddenContent.style.transform = 'translateY(0)';
-          triggerVibration();
-          createConfetti();
-          
-          // 礼物解锁后自动进入下一步
-          setTimeout(() => {
-            if (currentStep === 4) {
-              nextStep();
-            }
-          }, 2000);
-        }
-      }
-    });
-    
-    giftBox.addEventListener('touchend', function() {
-      isDragging = false;
-    });
+        triggerVibration();
+        createConfetti();
+        
+        // 礼物打开后自动进入下一步
+        setTimeout(() => {
+          if (currentStep === 4) {
+            nextStep();
+          }
+        }, 3000);
+      });
+    }
   }
   
   
