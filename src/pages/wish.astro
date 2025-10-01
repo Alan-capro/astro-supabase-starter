@@ -1,0 +1,92 @@
+---
+import Layout from "../components/Layout.astro";
+---
+
+<Layout title="许愿">
+  <div class="min-h-screen flex flex-col items-center justify-center px-8 py-24 bg-gradient-to-br from-pink-100 to-blue-100">
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12">许个愿吧</h2>
+    
+    <div class="glass-morphism rounded-3xl p-12 mb-8 max-w-2xl mx-auto">
+      <div class="text-6xl mb-6">🎂</div>
+      <p class="text-xl text-gray-700 mb-8">闭上眼睛，许下你的生日愿望<br>愿所有的美好都能实现 ✨</p>
+      <button id="wishBtn" class="gradient-button px-8 py-4 text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">🌟 许愿完成</button>
+    </div>
+    
+    <!-- 导航按钮 -->
+    <div class="flex items-center space-x-4">
+      <a href="/welcome" class="apple-nav-button">← 上一步</a>
+      <a href="/gift" class="apple-nav-button">下一步 →</a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .glass-morphism {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  
+  .gradient-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  .gradient-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  }
+  
+  .apple-nav-button {
+    background: transparent;
+    color: #007AFF;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 16px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    text-decoration: none;
+  }
+  
+  .apple-nav-button:hover {
+    background: rgba(0, 122, 255, 0.1);
+    color: #0056CC;
+  }
+  
+  .apple-nav-button:active {
+    transform: scale(0.95);
+    transition: transform 0.1s;
+  }
+</style>
+
+<script>
+  // 许愿交互
+  function initWishInteraction() {
+    const wishBtn = document.getElementById('wishBtn');
+    
+    if (wishBtn) {
+      wishBtn.addEventListener('click', function() {
+        // 添加许愿动画效果
+        this.style.transform = 'scale(0.95)';
+        this.style.background = 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)';
+        this.textContent = '✨ 愿望已实现 ✨';
+        
+        // 延迟跳转到礼物页面
+        setTimeout(() => {
+          window.location.href = '/gift';
+        }, 1500);
+      });
+    }
+  }
+  
+  // 页面加载完成后初始化
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('许愿页面加载完成');
+    initWishInteraction();
+  });
+</script>

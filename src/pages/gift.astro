@@ -1,0 +1,202 @@
+---
+import Layout from "../components/Layout.astro";
+---
+
+<Layout title="礼物">
+  <div class="min-h-screen flex flex-col items-center justify-center px-8 py-24 bg-gradient-to-br from-pink-100 to-blue-100">
+    <h2 class="text-5xl md:text-7xl font-light text-black mb-16 text-center">拆开你的礼物</h2>
+    
+    <div id="productShowcase" class="max-w-4xl mx-auto w-full">
+      <!-- 视频容器 -->
+      <div class="relative w-full max-w-sm mx-auto mb-16 flex justify-center">
+        <div class="aspect-3-4 bg-black rounded-3xl overflow-hidden shadow-2xl w-full max-w-sm">
+          <video 
+            id="giftVideo" 
+            class="w-full h-full object-cover" 
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+          >
+            <source src="/videos/gift.mp4" type="video/mp4">
+            <source src="/videos/gift.mov" type="video/quicktime">
+            您的浏览器不支持视频播放。
+          </video>
+        </div>
+      </div>
+      
+      <!-- 产品介绍 -->
+      <div id="productInfo" class="text-center opacity-0 transform translate-y-8 transition-all duration-700">
+        <h3 class="text-4xl md:text-6xl font-light text-black mb-4">石英表一只</h3>
+        <p class="text-xl md:text-2xl text-gray-600 mb-16 font-light">希望她喜欢</p>
+        
+        <div class="grid md:grid-cols-3 gap-12 mb-16">
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-4">
+              <span class="text-2xl">⏰</span>
+            </div>
+            <h4 class="text-lg font-medium text-black mb-2">精准计时</h4>
+            <p class="text-sm text-gray-500">石英机芯，走时精准</p>
+          </div>
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-4">
+              <span class="text-2xl">💎</span>
+            </div>
+            <h4 class="text-lg font-medium text-black mb-2">精致工艺</h4>
+            <p class="text-sm text-gray-500">精工细作，品质保证</p>
+          </div>
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-4">
+              <span class="text-2xl">❤️</span>
+            </div>
+            <h4 class="text-lg font-medium text-black mb-2">爱的见证</h4>
+            <p class="text-sm text-gray-500">每一秒都记录着我们的时光</p>
+          </div>
+        </div>
+        
+        <div class="max-w-2xl mx-auto">
+          <p class="text-xl md:text-2xl text-gray-600 font-light leading-relaxed mb-12">愿这只手表陪伴你度过每一个美好时刻<br>让时间见证我们的爱情</p>
+          <button id="continueBtn" class="apple-button">继续我们的故事</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 导航按钮 -->
+    <div class="flex items-center space-x-4 mt-8">
+      <a href="/wish" class="apple-nav-button">← 上一步</a>
+      <a href="/final" class="apple-nav-button">下一步 →</a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .aspect-3-4 {
+    aspect-ratio: 3 / 4;
+  }
+  
+  .apple-button {
+    background: #007AFF;
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 20px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .apple-button:hover {
+    background: #0056CC;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
+  }
+  
+  .apple-button:active {
+    transform: translateY(0);
+    transition: transform 0.1s;
+  }
+  
+  .apple-nav-button {
+    background: transparent;
+    color: #007AFF;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 16px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    text-decoration: none;
+  }
+  
+  .apple-nav-button:hover {
+    background: rgba(0, 122, 255, 0.1);
+    color: #0056CC;
+  }
+  
+  .apple-nav-button:active {
+    transform: scale(0.95);
+    transition: transform 0.1s;
+  }
+  
+  #giftVideo {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  #giftVideo:hover {
+    transform: scale(1.02);
+  }
+</style>
+
+<script>
+  // 礼物交互
+  function initGiftInteraction() {
+    const giftVideo = document.getElementById('giftVideo');
+    const productInfo = document.getElementById('productInfo');
+    const continueBtn = document.getElementById('continueBtn');
+    
+    if (giftVideo && productInfo) {
+      const video = giftVideo as HTMLVideoElement;
+      
+      console.log('礼物视频元素:', video);
+      console.log('礼物视频源:', video.src);
+      console.log('礼物视频就绪状态:', video.readyState);
+      
+      // 监听视频事件
+      video.addEventListener('loadstart', () => console.log('礼物视频开始加载'));
+      video.addEventListener('loadedmetadata', () => console.log('礼物视频元数据加载完成'));
+      video.addEventListener('loadeddata', () => console.log('礼物视频数据加载完成'));
+      video.addEventListener('canplay', () => console.log('礼物视频可以播放'));
+      video.addEventListener('canplaythrough', () => console.log('礼物视频可以流畅播放'));
+      video.addEventListener('error', (e) => {
+        console.log('礼物视频加载错误:', e);
+        console.log('错误详情:', video.error);
+      });
+      
+      // 自动播放礼物视频
+      const playGiftVideo = () => {
+        console.log('尝试播放礼物视频...');
+        video.play().then(() => {
+          console.log('礼物视频播放成功！');
+        }).catch((err: any) => {
+          console.log('礼物视频播放失败:', err);
+        });
+      };
+      
+      // 立即尝试播放
+      if (video.readyState >= 3) {
+        playGiftVideo();
+      } else {
+        video.addEventListener('canplay', playGiftVideo);
+        // 备用方案：延迟播放
+        setTimeout(playGiftVideo, 500);
+      }
+      
+      // 视频开始播放后显示产品信息
+      video.addEventListener('play', () => {
+        console.log('礼物视频开始播放');
+        setTimeout(() => {
+          productInfo.style.opacity = '1';
+          productInfo.style.transform = 'translateY(0)';
+        }, 1000);
+      });
+      
+      // 继续按钮点击事件
+      if (continueBtn) {
+        continueBtn.addEventListener('click', () => {
+          window.location.href = '/final';
+        });
+      }
+    } else {
+      console.log('找不到礼物视频元素或产品信息元素！');
+    }
+  }
+  
+  // 页面加载完成后初始化
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('礼物页面加载完成');
+    initGiftInteraction();
+  });
+</script>
