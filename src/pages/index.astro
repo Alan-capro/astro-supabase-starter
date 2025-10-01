@@ -95,42 +95,76 @@ import Layout from "../components/Layout.astro";
             拆开你的礼物
           </h2>
           
-          <!-- 简约礼盒 -->
-          <div class="glass-morphism rounded-3xl p-12 mb-8">
-            <div class="text-6xl mb-6">🎁</div>
-            <p class="text-xl text-gray-700 mb-8">
-              点击下面的按钮来拆开你的特别礼物
-            </p>
-            <button id="openGiftBtn" class="gradient-button px-8 py-4 text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
-              🎁 拆开礼物
-            </button>
-          </div>
-          
-          <!-- 视频内容 -->
-          <div id="giftContent" class="glass-morphism rounded-2xl p-8 opacity-0 transition-all duration-500 transform translate-y-8">
-            <h3 class="text-2xl font-bold text-gray-900 mb-6">🎉 惊喜！</h3>
-            <p class="text-lg text-gray-700 mb-6">
-              这是给你的特别礼物：
-            </p>
-            
-            <!-- 视频播放器 -->
-            <div class="relative w-full max-w-2xl mx-auto">
-              <video 
-                id="giftVideo" 
-                class="w-full h-auto rounded-xl shadow-2xl" 
-                controls 
-                preload="metadata"
-                poster="/images/video-poster.jpg"
-              >
-                <source src="/videos/copy_27B269CC-2DFE-43D6-9DD7-50A9A5274ABA.MOV" type="video/quicktime">
-                <source src="/videos/copy_27B269CC-2DFE-43D6-9DD7-50A9A5274ABA.mp4" type="video/mp4">
-                您的浏览器不支持视频播放。
-              </video>
+          <!-- 产品展示区域 -->
+          <div id="productShowcase" class="relative">
+            <!-- 视频容器 -->
+            <div class="relative w-full max-w-4xl mx-auto mb-8">
+              <div class="aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl">
+                <video 
+                  id="giftVideo" 
+                  class="w-full h-full object-cover" 
+                  muted
+                  loop
+                  playsinline
+                  preload="auto"
+                >
+                  <source src="/videos/copy_27B269CC-2DFE-43D6-9DD7-50A9A5274ABA.MOV" type="video/quicktime">
+                  <source src="/videos/copy_27B269CC-2DFE-43D6-9DD7-50A9A5274ABA.mp4" type="video/mp4">
+                  您的浏览器不支持视频播放。
+                </video>
+                
+                <!-- 视频覆盖层 -->
+                <div id="videoOverlay" class="absolute inset-0 bg-black/50 flex items-center justify-center transition-opacity duration-500">
+                  <div class="text-center text-white">
+                    <div class="text-6xl mb-4">🎁</div>
+                    <h3 class="text-2xl font-bold mb-2">特别礼物</h3>
+                    <p class="text-lg opacity-90">点击开始体验</p>
+                  </div>
+                </div>
+              </div>
             </div>
             
-            <p class="text-lg text-gray-700 mt-6">
-              愿你的每一天都充满爱和快乐！💕
-            </p>
+            <!-- 产品介绍 -->
+            <div id="productInfo" class="glass-morphism rounded-3xl p-8 md:p-12 opacity-0 transform translate-y-8 transition-all duration-700">
+              <div class="text-center mb-8">
+                <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                  石英表一只
+                </h3>
+                <p class="text-xl text-gray-600 mb-6">
+                  希望她喜欢
+                </p>
+              </div>
+              
+              <!-- 产品特性 -->
+              <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="text-center">
+                  <div class="text-4xl mb-3">⏰</div>
+                  <h4 class="font-semibold text-gray-900 mb-2">精准计时</h4>
+                  <p class="text-sm text-gray-600">石英机芯，走时精准</p>
+                </div>
+                <div class="text-center">
+                  <div class="text-4xl mb-3">💎</div>
+                  <h4 class="font-semibold text-gray-900 mb-2">精致工艺</h4>
+                  <p class="text-sm text-gray-600">精工细作，品质保证</p>
+                </div>
+                <div class="text-center">
+                  <div class="text-4xl mb-3">❤️</div>
+                  <h4 class="font-semibold text-gray-900 mb-2">爱的见证</h4>
+                  <p class="text-sm text-gray-600">每一秒都记录着我们的时光</p>
+                </div>
+              </div>
+              
+              <!-- 祝福语 -->
+              <div class="text-center">
+                <p class="text-lg text-gray-700 mb-6">
+                  愿这只手表陪伴你度过每一个美好时刻<br>
+                  让时间见证我们的爱情 💕
+                </p>
+                <button id="continueBtn" class="gradient-button px-8 py-4 text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
+                  继续我们的故事 →
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -326,27 +360,47 @@ import Layout from "../components/Layout.astro";
   
   // 礼物交互
   function initGiftInteraction() {
-    const openGiftBtn = document.getElementById('openGiftBtn');
-    const giftContent = document.getElementById('giftContent');
+    const videoOverlay = document.getElementById('videoOverlay');
+    const giftVideo = document.getElementById('giftVideo');
+    const productInfo = document.getElementById('productInfo');
+    const continueBtn = document.getElementById('continueBtn');
     
-    if (openGiftBtn && giftContent) {
-      openGiftBtn.addEventListener('click', function() {
-        // 显示礼物内容
-        giftContent.style.opacity = '1';
-        giftContent.style.transform = 'translateY(0)';
-        
-        // 隐藏按钮
-        openGiftBtn.style.display = 'none';
-        
-        triggerVibration();
-        createConfetti();
-        
-        // 礼物打开后自动进入下一步
-        setTimeout(() => {
-          if (currentStep === 4) {
-            nextStep();
-          }
-        }, 3000);
+    if (videoOverlay && giftVideo && productInfo) {
+      // 点击视频覆盖层开始播放
+      videoOverlay.addEventListener('click', function() {
+        // 开始播放视频
+        const video = giftVideo as HTMLVideoElement;
+        video.play().then(() => {
+          // 隐藏覆盖层
+          videoOverlay.style.opacity = '0';
+          setTimeout(() => {
+            videoOverlay.style.display = 'none';
+          }, 500);
+          
+          // 显示产品信息
+          setTimeout(() => {
+            productInfo.style.opacity = '1';
+            productInfo.style.transform = 'translateY(0)';
+          }, 1000);
+          
+          triggerVibration();
+          createConfetti();
+        }).catch((err: any) => {
+          console.log('视频播放失败:', err);
+          // 如果视频播放失败，直接显示产品信息
+          videoOverlay.style.display = 'none';
+          productInfo.style.opacity = '1';
+          productInfo.style.transform = 'translateY(0)';
+        });
+      });
+    }
+    
+    // 继续按钮
+    if (continueBtn) {
+      continueBtn.addEventListener('click', function() {
+        if (currentStep === 4) {
+          nextStep();
+        }
       });
     }
   }
@@ -534,5 +588,76 @@ import Layout from "../components/Layout.astro";
   
   .snap-center {
     scroll-snap-align: center;
+  }
+  
+  /* 视频容器高级效果 */
+  .aspect-video {
+    aspect-ratio: 16 / 9;
+  }
+  
+  /* 视频播放时的效果 */
+  #giftVideo {
+    transition: all 0.5s ease;
+  }
+  
+  #giftVideo:hover {
+    transform: scale(1.02);
+  }
+  
+  /* 产品信息动画 */
+  #productInfo {
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  /* 视频覆盖层效果 */
+  #videoOverlay {
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  #videoOverlay:hover {
+    background: rgba(0, 0, 0, 0.6);
+  }
+  
+  #videoOverlay:hover .text-6xl {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+  }
+  
+  /* 产品特性卡片效果 */
+  .grid > div {
+    transition: all 0.3s ease;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+  }
+  
+  .grid > div:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* 高级渐变效果 */
+  .gradient-button {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .gradient-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .gradient-button:hover::before {
+    left: 100%;
   }
 </style>
