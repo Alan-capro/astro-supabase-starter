@@ -100,12 +100,14 @@ const { title } = Astro.props;
       
       const toggleVolumeControl = () => {
         volumeVisible = !volumeVisible;
-        if (volumeVisible) {
-          volumeControl.style.opacity = '1';
-          volumeControl.style.pointerEvents = 'auto';
-        } else {
-          volumeControl.style.opacity = '0';
-          volumeControl.style.pointerEvents = 'none';
+        if (volumeControl) {
+          if (volumeVisible) {
+            volumeControl.style.opacity = '1';
+            volumeControl.style.pointerEvents = 'auto';
+          } else {
+            volumeControl.style.opacity = '0';
+            volumeControl.style.pointerEvents = 'none';
+          }
         }
       };
       
@@ -120,7 +122,7 @@ const { title } = Astro.props;
       });
       
       // 长按显示音量控制（移动端）
-      let longPressTimer: number;
+      let longPressTimer: ReturnType<typeof setTimeout>;
       let isLongPress = false;
       
       musicToggle.addEventListener('touchstart', (e) => {
@@ -163,7 +165,8 @@ const { title } = Astro.props;
       
       // 点击其他地方隐藏音量控制
       document.addEventListener('click', (e) => {
-        if (volumeVisible && !musicControl.contains(e.target as Node)) {
+        const musicControl = document.getElementById('musicControl');
+        if (volumeVisible && musicControl && !musicControl.contains(e.target as Node)) {
           toggleVolumeControl();
         }
       });
