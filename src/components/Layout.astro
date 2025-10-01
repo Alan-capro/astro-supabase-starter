@@ -17,5 +17,232 @@ const { title } = Astro.props;
   </head>
   <body class="antialiased">
     <slot />
+    
+    <!-- 全局背景音乐 -->
+    <audio id="bgMusic" loop preload="auto">
+      <source src="/music/方大同-love song.mp3" type="audio/mpeg">
+      您的浏览器不支持音频播放。
+    </audio>
+    
+    <!-- 音乐控制按钮 -->
+    <div id="musicControl" class="fixed top-4 right-4 z-50">
+      <button id="musicToggle" class="w-10 h-10 bg-white/80 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg border border-gray-200 hover:bg-white transition-all duration-300 relative">
+        <svg id="musicIcon" class="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        </svg>
+        <!-- 音量提示小图标 -->
+        <div class="absolute -bottom-1 -right-1 w-3 h-3 bg-blue-500 rounded-full flex items-center justify-center">
+          <svg class="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+          </svg>
+        </div>
+      </button>
+      
+      <!-- 音量控制（点击显示） -->
+      <div id="volumeControl" class="absolute top-12 right-0 bg-white/90 backdrop-blur-md rounded-lg shadow-lg border border-gray-200 p-3 opacity-0 pointer-events-none transition-all duration-300">
+        <div class="flex items-center space-x-2">
+          <svg class="w-3 h-3 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+          </svg>
+          <input 
+            id="volumeSlider" 
+            type="range" 
+            min="0" 
+            max="100" 
+            value="30" 
+            class="w-16 h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+          />
+          <span id="volumeDisplay" class="text-xs text-gray-500 w-6">30%</span>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
+
+<script>
+  // 全局背景音乐控制
+  function initBackgroundMusic() {
+    const bgMusic = document.getElementById('bgMusic') as HTMLAudioElement;
+    const musicToggle = document.getElementById('musicToggle');
+    const musicIcon = document.getElementById('musicIcon');
+    const volumeSlider = document.getElementById('volumeSlider') as HTMLInputElement;
+    const volumeDisplay = document.getElementById('volumeDisplay');
+    
+    if (bgMusic && musicToggle && musicIcon && volumeSlider && volumeDisplay) {
+      const volumeControl = document.getElementById('volumeControl');
+      
+      // 音乐控制逻辑
+      let isPlaying = false;
+      let volumeVisible = false;
+      
+      const playMusic = () => {
+        bgMusic.play().then(() => {
+          isPlaying = true;
+          musicIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+          console.log('背景音乐开始播放');
+        }).catch((err: any) => {
+          console.log('背景音乐播放失败:', err);
+        });
+      };
+      
+      const pauseMusic = () => {
+        bgMusic.pause();
+        isPlaying = false;
+        musicIcon.innerHTML = '<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>';
+        console.log('背景音乐暂停');
+      };
+      
+      // 音量控制
+      const updateVolume = (volume: number) => {
+        bgMusic.volume = volume / 100;
+        volumeDisplay.textContent = volume + '%';
+      };
+      
+      const toggleVolumeControl = () => {
+        volumeVisible = !volumeVisible;
+        if (volumeVisible) {
+          volumeControl.style.opacity = '1';
+          volumeControl.style.pointerEvents = 'auto';
+        } else {
+          volumeControl.style.opacity = '0';
+          volumeControl.style.pointerEvents = 'none';
+        }
+      };
+      
+      // 点击切换播放/暂停
+      musicToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (isPlaying) {
+          pauseMusic();
+        } else {
+          playMusic();
+        }
+      });
+      
+      // 长按显示音量控制（移动端）
+      let longPressTimer: number;
+      let isLongPress = false;
+      
+      musicToggle.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        isLongPress = false;
+        longPressTimer = setTimeout(() => {
+          isLongPress = true;
+          toggleVolumeControl();
+        }, 500);
+      });
+      
+      musicToggle.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        clearTimeout(longPressTimer);
+        // 如果不是长按，则执行点击事件
+        if (!isLongPress) {
+          if (isPlaying) {
+            pauseMusic();
+          } else {
+            playMusic();
+          }
+        }
+      });
+      
+      musicToggle.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        clearTimeout(longPressTimer);
+      });
+      
+      // 桌面端：右键或双击显示音量控制
+      musicToggle.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        toggleVolumeControl();
+      });
+      
+      musicToggle.addEventListener('dblclick', (e) => {
+        e.preventDefault();
+        toggleVolumeControl();
+      });
+      
+      // 点击其他地方隐藏音量控制
+      document.addEventListener('click', (e) => {
+        if (volumeVisible && !musicControl.contains(e.target as Node)) {
+          toggleVolumeControl();
+        }
+      });
+      
+      // 音量滑块控制
+      volumeSlider.addEventListener('input', (e) => {
+        const target = e.target as HTMLInputElement;
+        const volume = parseInt(target.value);
+        updateVolume(volume);
+      });
+      
+      // 初始化音量
+      updateVolume(30);
+      
+      // 页面加载完成后自动播放（如果用户允许）
+      document.addEventListener('DOMContentLoaded', () => {
+        // 延迟播放，避免浏览器阻止自动播放
+        setTimeout(() => {
+          playMusic();
+        }, 1000);
+      });
+      
+      // 页面失去焦点时暂停，获得焦点时恢复
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          if (isPlaying) {
+            pauseMusic();
+          }
+        } else {
+          if (!isPlaying) {
+            playMusic();
+          }
+        }
+      });
+    }
+  }
+  
+  // 页面加载完成后初始化背景音乐
+  document.addEventListener('DOMContentLoaded', initBackgroundMusic);
+</script>
+
+<style>
+  /* 音量滑块样式 */
+  .slider {
+    -webkit-appearance: none;
+    appearance: none;
+    background: #e5e7eb;
+    outline: none;
+    border-radius: 8px;
+  }
+  
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #667eea;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .slider::-webkit-slider-thumb:hover {
+    background: #5a6fd8;
+    transform: scale(1.1);
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #667eea;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+  }
+  
+  .slider::-moz-range-thumb:hover {
+    background: #5a6fd8;
+    transform: scale(1.1);
+  }
+</style>
