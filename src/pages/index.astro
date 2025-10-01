@@ -20,10 +20,10 @@ import Layout from "../components/Layout.astro";
               id="openingVideo" 
               class="w-full h-full object-contain md:object-cover" 
               autoplay
+              muted
               loop
               playsinline
               preload="auto"
-              controls
             >
               <source src="/videos/open.mp4" type="video/mp4">
               <source src="/videos/open.mov" type="video/quicktime">
@@ -248,12 +248,12 @@ import Layout from "../components/Layout.astro";
     </div>
     
     <!-- 导航按钮 -->
-    <div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-      <div class="flex items-center space-x-2 bg-white/80 backdrop-blur-xl rounded-full px-6 py-3 shadow-2xl border border-gray-200">
-        <button id="prevBtn" class="apple-nav-button opacity-0 pointer-events-none transition-all duration-300">
+    <div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-20">
+      <div class="flex items-center space-x-2 bg-white/90 backdrop-blur-md rounded-full px-4 py-2 shadow-lg border border-white/20">
+        <button id="prevBtn" class="apple-nav-button-small opacity-0 pointer-events-none transition-all duration-300">
           上一步
         </button>
-        <button id="nextBtn" class="apple-nav-button">
+        <button id="nextBtn" class="apple-nav-button-small">
           下一步
         </button>
       </div>
@@ -306,9 +306,6 @@ import Layout from "../components/Layout.astro";
     
     if (openingVideo) {
       const video = openingVideo as HTMLVideoElement;
-      
-      // 设置视频音量
-      video.volume = 0.8;
       
       // 自动播放开场视频
       video.play().catch((err: any) => {
@@ -712,6 +709,28 @@ import Layout from "../components/Layout.astro";
   }
   
   .apple-nav-button:active {
+    transform: scale(0.95);
+    transition: transform 0.1s;
+  }
+  
+  .apple-nav-button-small {
+    background: transparent;
+    color: #007AFF;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .apple-nav-button-small:hover {
+    background: rgba(0, 122, 255, 0.1);
+    color: #0056CC;
+  }
+  
+  .apple-nav-button-small:active {
     transform: scale(0.95);
     transition: transform 0.1s;
   }
