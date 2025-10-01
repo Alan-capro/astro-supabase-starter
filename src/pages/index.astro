@@ -11,8 +11,40 @@ import Layout from "../components/Layout.astro";
     <!-- 步骤容器 -->
     <div id="stepContainer" class="relative z-10 min-h-screen">
       
+      <!-- 步骤0: 开场视频 -->
+      <div class="step active" data-step="0">
+        <div class="min-h-screen flex items-center justify-center relative overflow-hidden">
+          <!-- 全屏视频背景 -->
+          <div class="absolute inset-0 w-full h-full flex items-center justify-center">
+            <video 
+              id="openingVideo" 
+              class="w-full h-full object-cover" 
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="auto"
+            >
+              <source src="/videos/open.mp4" type="video/mp4">
+              <source src="/videos/open.mov" type="video/quicktime">
+              您的浏览器不支持视频播放。
+            </video>
+          </div>
+          
+          <!-- 自动进入下一阶段的定时器 -->
+          <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+            <div class="text-center text-white">
+              <p class="text-lg font-light mb-4">视频播放中...</p>
+              <div class="w-32 h-1 bg-white/30 rounded-full overflow-hidden">
+                <div id="videoProgress" class="h-full bg-white rounded-full transition-all duration-1000"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
       <!-- 步骤1: 欢迎页面 -->
-      <div class="step active" data-step="1">
+      <div class="step" data-step="1">
         <div class="min-h-screen flex flex-col items-center justify-center px-8 py-24">
           <!-- 主标题 -->
           <h1 class="text-6xl md:text-8xl font-light text-black mb-8 text-center leading-tight">
@@ -99,11 +131,12 @@ import Layout from "../components/Layout.astro";
           <!-- 产品展示区域 -->
           <div id="productShowcase" class="max-w-4xl mx-auto w-full">
             <!-- 视频容器 -->
-            <div class="relative w-full max-w-sm mx-auto mb-16">
-              <div class="aspect-3-4 bg-black rounded-3xl overflow-hidden shadow-2xl">
+            <div class="relative w-full max-w-sm mx-auto mb-16 flex justify-center">
+              <div class="aspect-3-4 bg-black rounded-3xl overflow-hidden shadow-2xl w-full max-w-sm">
                 <video 
                   id="giftVideo" 
                   class="w-full h-full object-cover" 
+                  autoplay
                   muted
                   loop
                   playsinline
@@ -113,15 +146,6 @@ import Layout from "../components/Layout.astro";
                   <source src="/videos/copy_27B269CC-2DFE-43D6-9DD7-50A9A5274ABA.mp4" type="video/mp4">
                   您的浏览器不支持视频播放。
                 </video>
-                
-                <!-- 视频覆盖层 -->
-                <div id="videoOverlay" class="absolute inset-0 bg-black/60 flex items-center justify-center transition-opacity duration-500 cursor-pointer">
-                  <div class="text-center text-white">
-                    <div class="text-6xl mb-4">🎁</div>
-                    <h3 class="text-2xl font-light mb-2">特别礼物</h3>
-                    <p class="text-lg opacity-90">点击开始体验</p>
-                  </div>
-                </div>
               </div>
             </div>
             
@@ -229,8 +253,8 @@ import Layout from "../components/Layout.astro";
 
 <script>
   // 步骤管理
-  let currentStep = 1;
-  const totalSteps = 5;
+  let currentStep = 0;
+  const totalSteps = 6;
   
   // 初始化页面
   document.addEventListener('DOMContentLoaded', function() {
@@ -241,8 +265,8 @@ import Layout from "../components/Layout.astro";
       currentDateElement.textContent = currentDate.toLocaleDateString('zh-CN');
     }
     
-    // 计算在一起的天数（示例：从2023年1月1日开始）
-    const startDate = new Date('2023-01-01');
+    // 计算在一起的天数（从2023年12月24日开始）
+    const startDate = new Date('2023-12-24');
     const daysTogether = Math.floor((currentDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
     const daysTogetherElement = document.getElementById('daysTogether');
     if (daysTogetherElement) {
@@ -251,10 +275,48 @@ import Layout from "../components/Layout.astro";
     
     // 初始化步骤导航
     initStepNavigation();
+    initOpeningVideo();
     initWishInteraction();
     initGiftInteraction();
     initVibration();
   });
+  
+  // 开场视频
+  function initOpeningVideo() {
+    const openingVideo = document.getElementById('openingVideo');
+    const videoProgress = document.getElementById('videoProgress');
+    
+    if (openingVideo) {
+      const video = openingVideo as HTMLVideoElement;
+      
+      // 自动播放开场视频
+      video.play().catch((err: any) => {
+        console.log('开场视频播放失败:', err);
+        // 如果视频播放失败，直接进入下一步
+        setTimeout(() => nextStep(), 2000);
+      });
+      
+      // 视频播放完成后自动进入下一步
+      video.addEventListener('ended', () => {
+        nextStep();
+      });
+      
+      // 视频播放3秒后自动进入下一步（防止视频太长）
+      setTimeout(() => {
+        if (currentStep === 0) {
+          nextStep();
+        }
+      }, 3000);
+      
+      // 更新进度条
+      if (videoProgress) {
+        video.addEventListener('timeupdate', () => {
+          const progress = (video.currentTime / video.duration) * 100;
+          videoProgress.style.width = progress + '%';
+        });
+      }
+    }
+  }
   
   // 步骤导航
   function initStepNavigation() {
@@ -370,39 +432,38 @@ import Layout from "../components/Layout.astro";
   
   // 礼物交互
   function initGiftInteraction() {
-    const videoOverlay = document.getElementById('videoOverlay');
     const giftVideo = document.getElementById('giftVideo');
     const productInfo = document.getElementById('productInfo');
     const continueBtn = document.getElementById('continueBtn');
     
-    if (videoOverlay && giftVideo && productInfo) {
-      // 点击视频覆盖层开始播放
-      videoOverlay.addEventListener('click', function() {
-        // 开始播放视频
-        const video = giftVideo as HTMLVideoElement;
-        video.play().then(() => {
-          // 隐藏覆盖层
-          videoOverlay.style.opacity = '0';
-          setTimeout(() => {
-            videoOverlay.style.display = 'none';
-          }, 500);
-          
-          // 显示产品信息
-          setTimeout(() => {
-            productInfo.style.opacity = '1';
-            productInfo.style.transform = 'translateY(0)';
-          }, 1000);
-          
-          triggerVibration();
-          createConfetti();
-        }).catch((err: any) => {
-          console.log('视频播放失败:', err);
-          // 如果视频播放失败，直接显示产品信息
-          videoOverlay.style.display = 'none';
+    if (giftVideo && productInfo) {
+      const video = giftVideo as HTMLVideoElement;
+      
+      // 视频开始播放后显示产品信息
+      video.addEventListener('play', () => {
+        setTimeout(() => {
           productInfo.style.opacity = '1';
           productInfo.style.transform = 'translateY(0)';
-        });
+          triggerVibration();
+          createConfetti();
+        }, 1000);
       });
+      
+      // 视频播放完成后自动进入下一步
+      video.addEventListener('ended', () => {
+        setTimeout(() => {
+          if (currentStep === 4) {
+            nextStep();
+          }
+        }, 2000);
+      });
+      
+      // 视频播放3秒后自动进入下一步（防止视频太长）
+      setTimeout(() => {
+        if (currentStep === 4) {
+          nextStep();
+        }
+      }, 5000);
     }
     
     // 继续按钮
@@ -552,6 +613,30 @@ import Layout from "../components/Layout.astro";
   }
   
   .apple-button-secondary:active {
+    transform: scale(0.98);
+    transition: transform 0.1s;
+  }
+  
+  .apple-button-white {
+    background: rgba(255, 255, 255, 0.9);
+    color: #000;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 16px 32px;
+    border-radius: 20px;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter: blur(10px);
+  }
+  
+  .apple-button-white:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .apple-button-white:active {
     transform: scale(0.98);
     transition: transform 0.1s;
   }
