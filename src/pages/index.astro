@@ -4,63 +4,57 @@ import Layout from "../components/Layout.astro";
 
 <Layout title="生日快乐，我的宝贝 💕">
   <!-- 主容器 -->
-  <div id="app" class="min-h-screen relative overflow-hidden">
-    <!-- 背景渐变 -->
-    <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50"></div>
-    
+  <div id="app" class="min-h-screen relative">
+    <!-- 背景 -->
+    <div class="absolute inset-0 bg-white dark:bg-black transition-colors duration-500"></div>
     
     <!-- 步骤容器 -->
-    <div id="stepContainer" class="relative z-10 min-h-screen flex items-center justify-center">
+    <div id="stepContainer" class="relative z-10 min-h-screen">
       
       <!-- 步骤1: 欢迎页面 -->
       <div class="step active" data-step="1">
-        <div class="text-center px-6 max-w-4xl mx-auto">
-          <!-- 心跳图标 -->
-          <div class="mb-8">
-            <div class="inline-block animate-heartbeat">
-              <div class="w-20 h-20 mx-auto bg-gradient-to-r from-red-400 to-pink-500 rounded-full flex items-center justify-center shadow-xl">
-                <span class="text-white text-3xl">💖</span>
-              </div>
-            </div>
-          </div>
-          
-          <!-- 名字和标题 -->
-          <h1 class="text-responsive-lg font-bold text-gray-900 mb-4">
-            生日快乐，<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">我的宝贝</span>
+        <div class="min-h-screen flex flex-col items-center justify-center px-8 py-24">
+          <!-- 主标题 -->
+          <h1 class="text-6xl md:text-8xl font-light text-black dark:text-white mb-8 text-center leading-tight">
+            生日快乐
           </h1>
           
-          <p class="text-responsive text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-            愿你的每一天都像今天一样特别，愿你的笑容永远如阳光般灿烂
+          <!-- 副标题 -->
+          <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-16 text-center font-light max-w-2xl">
+            愿你的每一天都像今天一样特别
           </p>
           
           <!-- 开始按钮 -->
-          <button id="startBtn" class="gradient-button px-8 py-4 text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
-            🎁 开始我们的特别之旅
+          <button id="startBtn" class="apple-button">
+            开始体验
           </button>
         </div>
       </div>
       
       <!-- 步骤2: 我们的故事 -->
       <div class="step" data-step="2">
-        <div class="text-center px-6 max-w-4xl mx-auto">
-          <div class="glass-morphism rounded-3xl p-8 md:p-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              给最特别的你
-            </h2>
-            <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-              从我们相遇的那一天起，每一天都因为你而变得特别。<br>
-              今天是你专属的日子，愿所有的美好都围绕着你。
+        <div class="min-h-screen flex flex-col items-center justify-center px-8 py-24">
+          <!-- 主标题 -->
+          <h2 class="text-5xl md:text-7xl font-light text-black dark:text-white mb-12 text-center">
+            给最特别的你
+          </h2>
+          
+          <!-- 故事内容 -->
+          <div class="max-w-4xl mx-auto text-center mb-16">
+            <p class="text-2xl md:text-3xl text-gray-600 dark:text-gray-400 font-light leading-relaxed mb-12">
+              从我们相遇的那一天起<br>
+              每一天都因为你而变得特别
             </p>
             
-            <!-- 日期和天数 -->
-            <div class="flex flex-col md:flex-row justify-center items-center gap-8 text-gray-600">
-              <div class="text-center">
-                <div class="text-2xl font-bold text-blue-600" id="currentDate"></div>
-                <div class="text-sm">今天</div>
+            <!-- 时间线 -->
+            <div class="flex flex-col md:flex-row justify-center items-center gap-16 text-center">
+              <div class="timeline-item">
+                <div class="text-4xl md:text-5xl font-light text-black dark:text-white mb-2" id="currentDate"></div>
+                <div class="text-sm text-gray-500 dark:text-gray-500 uppercase tracking-wider">今天</div>
               </div>
-              <div class="text-center">
-                <div class="text-2xl font-bold text-pink-600" id="daysTogether"></div>
-                <div class="text-sm">在一起的天数</div>
+              <div class="timeline-item">
+                <div class="text-4xl md:text-5xl font-light text-black dark:text-white mb-2" id="daysTogether"></div>
+                <div class="text-sm text-gray-500 dark:text-gray-500 uppercase tracking-wider">在一起的天数</div>
               </div>
             </div>
           </div>
@@ -69,20 +63,26 @@ import Layout from "../components/Layout.astro";
       
       <!-- 步骤3: 许愿环节 -->
       <div class="step" data-step="3">
-        <div class="text-center px-6 max-w-4xl mx-auto">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12">
+        <div class="min-h-screen flex flex-col items-center justify-center px-8 py-24">
+          <!-- 主标题 -->
+          <h2 class="text-5xl md:text-7xl font-light text-black dark:text-white mb-16 text-center">
             许个愿吧
           </h2>
           
-          <!-- 简约许愿区域 -->
-          <div class="glass-morphism rounded-3xl p-12 mb-8">
-            <div class="text-6xl mb-6">🎂</div>
-            <p class="text-xl text-gray-700 mb-8">
-              闭上眼睛，许下你的生日愿望<br>
-              愿所有的美好都能实现 ✨
-            </p>
-            <button id="wishBtn" class="gradient-button px-8 py-4 text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
-              🌟 许愿完成
+          <!-- 许愿内容 -->
+          <div class="max-w-3xl mx-auto text-center">
+            <div class="mb-12">
+              <div class="w-32 h-32 mx-auto bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-8">
+                <span class="text-6xl">🎂</span>
+              </div>
+              <p class="text-2xl md:text-3xl text-gray-600 dark:text-gray-400 font-light leading-relaxed mb-12">
+                闭上眼睛，许下你的生日愿望<br>
+                愿所有的美好都能实现
+              </p>
+            </div>
+            
+            <button id="wishBtn" class="apple-button">
+              许愿完成
             </button>
           </div>
         </div>
@@ -90,16 +90,17 @@ import Layout from "../components/Layout.astro";
       
       <!-- 步骤4: 拆礼物 -->
       <div class="step" data-step="4">
-        <div class="text-center px-6 max-w-4xl mx-auto">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12">
+        <div class="min-h-screen flex flex-col items-center justify-center px-8 py-24">
+          <!-- 主标题 -->
+          <h2 class="text-5xl md:text-7xl font-light text-black dark:text-white mb-16 text-center">
             拆开你的礼物
           </h2>
           
           <!-- 产品展示区域 -->
-          <div id="productShowcase" class="relative">
+          <div id="productShowcase" class="max-w-4xl mx-auto w-full">
             <!-- 视频容器 -->
-            <div class="relative w-full max-w-4xl mx-auto mb-8">
-              <div class="aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl">
+            <div class="relative w-full max-w-sm mx-auto mb-16">
+              <div class="aspect-4-3 bg-black rounded-3xl overflow-hidden shadow-2xl">
                 <video 
                   id="giftVideo" 
                   class="w-full h-full object-cover" 
@@ -114,10 +115,10 @@ import Layout from "../components/Layout.astro";
                 </video>
                 
                 <!-- 视频覆盖层 -->
-                <div id="videoOverlay" class="absolute inset-0 bg-black/50 flex items-center justify-center transition-opacity duration-500">
+                <div id="videoOverlay" class="absolute inset-0 bg-black/60 flex items-center justify-center transition-opacity duration-500 cursor-pointer">
                   <div class="text-center text-white">
                     <div class="text-6xl mb-4">🎁</div>
-                    <h3 class="text-2xl font-bold mb-2">特别礼物</h3>
+                    <h3 class="text-2xl font-light mb-2">特别礼物</h3>
                     <p class="text-lg opacity-90">点击开始体验</p>
                   </div>
                 </div>
@@ -125,43 +126,47 @@ import Layout from "../components/Layout.astro";
             </div>
             
             <!-- 产品介绍 -->
-            <div id="productInfo" class="glass-morphism rounded-3xl p-8 md:p-12 opacity-0 transform translate-y-8 transition-all duration-700">
-              <div class="text-center mb-8">
-                <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                  石英表一只
-                </h3>
-                <p class="text-xl text-gray-600 mb-6">
-                  希望她喜欢
-                </p>
-              </div>
+            <div id="productInfo" class="text-center opacity-0 transform translate-y-8 transition-all duration-700">
+              <h3 class="text-4xl md:text-6xl font-light text-black dark:text-white mb-4">
+                石英表一只
+              </h3>
+              <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-16 font-light">
+                希望她喜欢
+              </p>
               
               <!-- 产品特性 -->
-              <div class="grid md:grid-cols-3 gap-6 mb-8">
+              <div class="grid md:grid-cols-3 gap-12 mb-16">
                 <div class="text-center">
-                  <div class="text-4xl mb-3">⏰</div>
-                  <h4 class="font-semibold text-gray-900 mb-2">精准计时</h4>
-                  <p class="text-sm text-gray-600">石英机芯，走时精准</p>
+                  <div class="w-16 h-16 mx-auto bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
+                    <span class="text-2xl">⏰</span>
+                  </div>
+                  <h4 class="text-lg font-medium text-black dark:text-white mb-2">精准计时</h4>
+                  <p class="text-sm text-gray-500 dark:text-gray-500">石英机芯，走时精准</p>
                 </div>
                 <div class="text-center">
-                  <div class="text-4xl mb-3">💎</div>
-                  <h4 class="font-semibold text-gray-900 mb-2">精致工艺</h4>
-                  <p class="text-sm text-gray-600">精工细作，品质保证</p>
+                  <div class="w-16 h-16 mx-auto bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
+                    <span class="text-2xl">💎</span>
+                  </div>
+                  <h4 class="text-lg font-medium text-black dark:text-white mb-2">精致工艺</h4>
+                  <p class="text-sm text-gray-500 dark:text-gray-500">精工细作，品质保证</p>
                 </div>
                 <div class="text-center">
-                  <div class="text-4xl mb-3">❤️</div>
-                  <h4 class="font-semibold text-gray-900 mb-2">爱的见证</h4>
-                  <p class="text-sm text-gray-600">每一秒都记录着我们的时光</p>
+                  <div class="w-16 h-16 mx-auto bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
+                    <span class="text-2xl">❤️</span>
+                  </div>
+                  <h4 class="text-lg font-medium text-black dark:text-white mb-2">爱的见证</h4>
+                  <p class="text-sm text-gray-500 dark:text-gray-500">每一秒都记录着我们的时光</p>
                 </div>
               </div>
               
               <!-- 祝福语 -->
-              <div class="text-center">
-                <p class="text-lg text-gray-700 mb-6">
+              <div class="max-w-2xl mx-auto">
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-light leading-relaxed mb-12">
                   愿这只手表陪伴你度过每一个美好时刻<br>
-                  让时间见证我们的爱情 💕
+                  让时间见证我们的爱情
                 </p>
-                <button id="continueBtn" class="gradient-button px-8 py-4 text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
-                  继续我们的故事 →
+                <button id="continueBtn" class="apple-button">
+                  继续我们的故事
                 </button>
               </div>
             </div>
@@ -171,22 +176,27 @@ import Layout from "../components/Layout.astro";
       
       <!-- 步骤5: 完成页面 -->
       <div class="step" data-step="5">
-        <div class="text-center px-6 max-w-4xl mx-auto">
-          <div class="glass-morphism rounded-3xl p-8 md:p-12">
-            <div class="text-6xl mb-6">🎉</div>
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              生日快乐！
-            </h2>
-            <p class="text-lg text-gray-700 mb-8">
+        <div class="min-h-screen flex flex-col items-center justify-center px-8 py-24">
+          <!-- 主标题 -->
+          <h2 class="text-5xl md:text-7xl font-light text-black dark:text-white mb-16 text-center">
+            生日快乐！
+          </h2>
+          
+          <!-- 完成内容 -->
+          <div class="max-w-3xl mx-auto text-center mb-16">
+            <div class="w-24 h-24 mx-auto bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-8">
+              <span class="text-4xl">🎉</span>
+            </div>
+            <p class="text-2xl md:text-3xl text-gray-600 dark:text-gray-400 font-light leading-relaxed mb-12">
               愿你的每一天都充满爱和快乐<br>
-              愿所有的美好都能实现 ✨
+              愿所有的美好都能实现
             </p>
             
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-              <button id="shareBtn" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+              <button id="shareBtn" class="apple-button-secondary">
                 分享这份快乐
               </button>
-              <button id="restartBtn" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+              <button id="restartBtn" class="apple-button">
                 再来一次
               </button>
             </div>
@@ -196,21 +206,21 @@ import Layout from "../components/Layout.astro";
     </div>
     
     <!-- 导航按钮 -->
-    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-      <div class="flex items-center space-x-4">
-        <button id="prevBtn" class="nav-button opacity-0 pointer-events-none transition-all duration-300">
-          ← 上一步
+    <div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+      <div class="flex items-center space-x-2 bg-white/80 dark:bg-black/80 backdrop-blur-xl rounded-full px-6 py-3 shadow-2xl border border-white/20 dark:border-white/10">
+        <button id="prevBtn" class="apple-nav-button opacity-0 pointer-events-none transition-all duration-300">
+          上一步
         </button>
-        <button id="nextBtn" class="nav-button">
-          下一步 →
+        <button id="nextBtn" class="apple-nav-button">
+          下一步
         </button>
       </div>
     </div>
     
     <!-- 装饰性元素 -->
-    <div class="absolute top-20 left-10 w-4 h-4 bg-yellow-300 rounded-full animate-pulse"></div>
-    <div class="absolute top-40 right-16 w-3 h-3 bg-pink-300 rounded-full animate-pulse" style="animation-delay: 1s;"></div>
-    <div class="absolute bottom-32 left-20 w-5 h-5 bg-blue-300 rounded-full animate-pulse" style="animation-delay: 2s;"></div>
+    <div class="absolute top-20 left-10 w-4 h-4 bg-yellow-300 rounded-full animate-pulse pointer-events-none"></div>
+    <div class="absolute top-40 right-16 w-3 h-3 bg-pink-300 rounded-full animate-pulse pointer-events-none" style="animation-delay: 1s;"></div>
+    <div class="absolute top-60 left-20 w-5 h-5 bg-blue-300 rounded-full animate-pulse pointer-events-none" style="animation-delay: 2s;"></div>
   </div>
 
   <!-- 彩纸动画容器 -->
@@ -476,100 +486,216 @@ import Layout from "../components/Layout.astro";
 </script>
 
 <style>
+  /* Apple风格设计系统 */
+  
   /* 步骤样式 */
   .step {
     display: none;
     width: 100%;
     min-height: 100vh;
     opacity: 0;
-    transform: translateX(50px);
-    transition: all 0.5s ease-in-out;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    z-index: 1;
   }
   
   .step.active {
     display: block;
     opacity: 1;
-    transform: translateX(0);
-  }
-  
-  /* 导航按钮样式 */
-  .nav-button {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 25px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-  }
-  
-  .nav-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-  }
-  
-  .nav-button:active {
     transform: translateY(0);
   }
   
-  /* 玻璃态效果 */
-  .glass-morphism {
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  }
-  
-  /* 渐变按钮 */
-  .gradient-button {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* Apple风格按钮 */
+  .apple-button {
+    background: #007AFF;
     color: white;
     border: none;
     padding: 16px 32px;
-    border-radius: 25px;
-    font-weight: 600;
+    border-radius: 20px;
+    font-size: 17px;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 16px rgba(0, 122, 255, 0.3);
+    position: relative;
+    overflow: hidden;
   }
   
-  .gradient-button:hover {
+  .apple-button:hover {
+    background: #0056CC;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0, 122, 255, 0.4);
+  }
+  
+  .apple-button:active {
+    transform: scale(0.98);
+    transition: transform 0.1s;
+  }
+  
+  .apple-button-secondary {
+    background: transparent;
+    color: #007AFF;
+    border: 2px solid #007AFF;
+    padding: 14px 30px;
+    border-radius: 20px;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .apple-button-secondary:hover {
+    background: #007AFF;
+    color: white;
+    transform: translateY(-1px);
+  }
+  
+  .apple-button-secondary:active {
+    transform: scale(0.98);
+    transition: transform 0.1s;
+  }
+  
+  /* 导航按钮 */
+  .apple-nav-button {
+    background: transparent;
+    color: #007AFF;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 16px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .apple-nav-button:hover {
+    background: rgba(0, 122, 255, 0.1);
+    color: #0056CC;
+  }
+  
+  .apple-nav-button:active {
+    transform: scale(0.95);
+    transition: transform 0.1s;
+  }
+  
+  /* 视频容器 */
+  .aspect-4-3 {
+    aspect-ratio: 4 / 3;
+  }
+  
+  /* 视频播放效果 */
+  #giftVideo {
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  #giftVideo:hover {
+    transform: scale(1.02);
+  }
+  
+  /* 视频覆盖层 */
+  #videoOverlay {
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  #videoOverlay:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+  
+  #videoOverlay:hover .text-6xl {
+    transform: scale(1.05);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  /* 时间线项目 */
+  .timeline-item {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .timeline-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
   }
   
-  /* 心跳动画 */
-  @keyframes heartbeat {
-    0% { transform: scale(1); }
-    25% { transform: scale(1.1); }
-    50% { transform: scale(1); }
-    75% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+  /* 产品特性卡片 */
+  .grid > div {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   
-  .animate-heartbeat {
-    animation: heartbeat 2s ease-in-out infinite;
+  .grid > div:hover {
+    transform: translateY(-4px);
   }
   
-  /* 响应式文字 */
-  .text-responsive {
-    font-size: 1.125rem;
-  }
-  
-  .text-responsive-lg {
-    font-size: 2.5rem;
-  }
-  
-  @media (max-width: 768px) {
-    .text-responsive {
-      font-size: 1rem;
+  /* 深色模式支持 */
+  @media (prefers-color-scheme: dark) {
+    .dark\:bg-black {
+      background-color: #000000;
     }
     
-    .text-responsive-lg {
-      font-size: 2rem;
+    .dark\:text-white {
+      color: #ffffff;
     }
+    
+    .dark\:text-gray-400 {
+      color: #9ca3af;
+    }
+    
+    .dark\:text-gray-500 {
+      color: #6b7280;
+    }
+    
+    .dark\:bg-gray-800 {
+      background-color: #1f2937;
+    }
+    
+    .dark\:border-white\/10 {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+  
+  /* 移动端适配 */
+  @media (max-width: 768px) {
+    .step {
+      min-height: 100vh;
+      padding: 2rem 0;
+    }
+    
+    .fixed.bottom-8 {
+      bottom: 1rem;
+    }
+    
+    .aspect-4-3 {
+      max-width: 300px;
+    }
+    
+    .text-6xl {
+      font-size: 3rem;
+    }
+    
+    .text-8xl {
+      font-size: 4rem;
+    }
+  }
+  
+  /* 确保没有堆叠 */
+  .step:not(.active) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+  }
+  
+  .step.active {
+    position: relative;
+    pointer-events: auto;
+  }
+  
+  /* 流畅的页面加载 */
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
   /* 隐藏滚动条 */
@@ -580,84 +706,5 @@ import Layout from "../components/Layout.astro";
   
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
-  }
-  
-  .snap-x {
-    scroll-snap-type: x mandatory;
-  }
-  
-  .snap-center {
-    scroll-snap-align: center;
-  }
-  
-  /* 视频容器高级效果 */
-  .aspect-video {
-    aspect-ratio: 16 / 9;
-  }
-  
-  /* 视频播放时的效果 */
-  #giftVideo {
-    transition: all 0.5s ease;
-  }
-  
-  #giftVideo:hover {
-    transform: scale(1.02);
-  }
-  
-  /* 产品信息动画 */
-  #productInfo {
-    backdrop-filter: blur(20px);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  /* 视频覆盖层效果 */
-  #videoOverlay {
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  #videoOverlay:hover {
-    background: rgba(0, 0, 0, 0.6);
-  }
-  
-  #videoOverlay:hover .text-6xl {
-    transform: scale(1.1);
-    transition: transform 0.3s ease;
-  }
-  
-  /* 产品特性卡片效果 */
-  .grid > div {
-    transition: all 0.3s ease;
-    padding: 1.5rem;
-    border-radius: 1rem;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-  }
-  
-  .grid > div:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.2);
-  }
-  
-  /* 高级渐变效果 */
-  .gradient-button {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .gradient-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-  }
-  
-  .gradient-button:hover::before {
-    left: 100%;
   }
 </style>
